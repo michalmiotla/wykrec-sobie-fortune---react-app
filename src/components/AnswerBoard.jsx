@@ -1,3 +1,7 @@
+import { answersArray } from '../utils/answersArray'
+
+console.log(answersArray)
+
 export function AnswerBoard() {
 	return (
 		<div className='flex flex-col items-center justify-between w-[350px] h-[200px] sm:w-[475px] sm:h-[275px] md:w-[600px] md:h-[350px] lg:w-[475px] lg:h-[275px] xl:w-[600px] xl:h-[350px] p-2 bg-light-beige rounded-2xl border-2 border-black'>
