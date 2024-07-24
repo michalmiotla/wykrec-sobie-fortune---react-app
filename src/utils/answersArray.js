@@ -4,7 +4,7 @@ export const answersArray = [
 		answer: 'ZACZNIJ OD BACHA',
 	},
 	{
-		category: 'KINO',
+		category: 'KINO ŚWIATOWE',
 		answer: 'PRZEMINĘŁO Z WIATREM',
 	},
 	{

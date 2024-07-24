@@ -7,7 +7,7 @@ export function Wheel() {
 				src='../wheel.png'
 				alt=''
 			/>
-			<button className='absolute bg-transparent border-none text-base sm:text-xl xl:text-2xl text-white rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px]  xl:w-[140px]  '>
+			<button className='absolute bg-transparent border-none font-bold text-base sm:text-xl xl:text-2xl text-white rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px]  xl:w-[140px]  '>
 				SPIN
 			</button>
 		</div>
