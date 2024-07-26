@@ -1,11 +1,15 @@
-import { consonantsArray } from '../utils/consonantsArray'
-import { vowelsArray } from '../utils/vowelsArray'
-import { Consonant } from './Consonant'
+import { consonantsArray } from '../../utils/consonantsArray'
+import { vowelsArray } from '../../utils/vowelsArray'
+import { Consonant } from '../BoardsSide/Consonant'
 import { Vowel } from './Vowel'
 
-export function LettersBoard() {
+export function LettersBoard({ setChosenLetters, chosenAnswer }) {
 	const mappedConsonants = consonantsArray.map((consonant, index) => (
-		<Consonant letter={consonant} key={index}></Consonant>
+		<Consonant
+			letter={consonant}
+			key={index}
+			setChosenLetters={setChosenLetters}
+			chosenAnswer={chosenAnswer}></Consonant>
 	))
 
 	const mappedVowels = vowelsArray.map((vowel, index) => <Vowel letter={vowel} key={index}></Vowel>)

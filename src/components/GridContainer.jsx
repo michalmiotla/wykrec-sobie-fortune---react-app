@@ -1,5 +1,5 @@
-import { BoardsSide } from './BoardsSide'
-import { WheelSide } from './WheelSide'
+import { BoardsSide } from '../components/BoardsSide/BoardsSide'
+import { WheelSide } from '../components/WheelSide/WheelSide'
 
 export function GridContainer() {
 	return (
