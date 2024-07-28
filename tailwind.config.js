@@ -10,6 +10,7 @@ export default {
 				'light-beige': '#EFE8C7',
 				'light-khaki': '#ECDA83',
 				crimson: '#FF5C66',
+				'light-red': 'rgb(252 165 165)',
 			},
 			backgroundImage: {
 				painted: "url('/bg-paint.png')",
