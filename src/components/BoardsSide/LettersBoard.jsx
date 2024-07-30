@@ -3,13 +3,15 @@ import { vowelsArray } from '../../utils/vowelsArray'
 import { Consonant } from '../BoardsSide/Consonant'
 import { Vowel } from './Vowel'
 
-export function LettersBoard({ setChosenLetters, chosenAnswer }) {
+export function LettersBoard({ setChosenLetters, chosenAnswer, setRoundPoints, valueOfSpinnedWheel }) {
 	const mappedConsonants = consonantsArray.map((consonant, index) => (
 		<Consonant
+			valueOfSpinnedWheel={valueOfSpinnedWheel}
 			letter={consonant}
 			key={index}
 			setChosenLetters={setChosenLetters}
-			chosenAnswer={chosenAnswer}></Consonant>
+			chosenAnswer={chosenAnswer}
+			setRoundPoints={setRoundPoints}></Consonant>
 	))
 
 	const mappedVowels = vowelsArray.map((vowel, index) => (

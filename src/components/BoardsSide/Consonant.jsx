@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export function Consonant({ letter, setChosenLetters, chosenAnswer }) {
+export function Consonant({ letter, setChosenLetters, chosenAnswer, setRoundPoints, valueOfSpinnedWheel }) {
 	const [isConsonantDisabled, setIsConsonantDisabled] = useState(false)
 
 	function chooseConsonantsToReveal() {
@@ -9,12 +9,12 @@ export function Consonant({ letter, setChosenLetters, chosenAnswer }) {
 	}
 
 	function checkIsConsonantInAnswer() {
-		const answer = chosenAnswer.answer
-		if (answer.includes(letter)) {
-			console.log('ok')
-		} else {
-			alert('nie ma literki w haśle')
-		}
+		const answer = [...chosenAnswer.answer]
+		answer.forEach(l => {
+			if (l === letter) {
+				setRoundPoints(prevPoints => prevPoints + valueOfSpinnedWheel)
+			}
+		})
 	}
 
 	return (

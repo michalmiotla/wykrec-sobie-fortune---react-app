@@ -1,71 +1,47 @@
 import { useEffect, useState } from 'react'
 import { easeInOut, motion } from 'framer-motion'
 
-export function Wheel({ isSpinDisabled, setIsSpinDisabled }) {
+export function Wheel({
+	setRoundPoints,
+	isSpinDisabled,
+	setIsSpinDisabled,
+	setRotateWheel,
+	rotateWheel,
+	valueOfSpinnedWheel,
+	initialDeg,
+}) {
 	const [isWheelSpinning, setIsWheelSpinning] = useState(false)
 	const [startSpinDegrees, setStartSpinDegrees] = useState(0)
-	const [rotateWheel, setRotateWheel] = useState(0)
-
-	let initialDeg = 0
 
 	function setDegrees() {
 		const degrees = Math.floor(Math.random() * 2000 + 500)
 		initialDeg = degrees % 360
-
-		console.log(degrees)
-		console.log(initialDeg)
 		setRotateWheel(prevRotateValue => prevRotateValue + degrees)
 		setStartSpinDegrees(initialDeg)
 	}
 
-	console.log((initialDeg + rotateWheel) % 360)
-
 	useEffect(() => {
 		if (isWheelSpinning) {
 			setIsSpinDisabled(true)
-			let timer1 = setTimeout(() => setIsWheelSpinning(false), 5000)
+			let timer1 = setTimeout(() => {
+				setIsWheelSpinning(false)
+			}, 500)
 			return () => {
 				clearTimeout(timer1)
 			}
 		}
-	}, [isWheelSpinning])
+	}, [isWheelSpinning, setIsSpinDisabled])
 
-	function setValue() {
-		switch (true) {
-			case (initialDeg + rotateWheel) % 360 > 0 && (initialDeg + rotateWheel) % 360 <= 22.5:
-				return 500
-			case (initialDeg + rotateWheel) % 360 > 22.5 && (initialDeg + rotateWheel) % 360 <= 45:
-				return 200
-			case (initialDeg + rotateWheel) % 360 > 45 && (initialDeg + rotateWheel) % 360 <= 67.5:
-				return 700
-			case (initialDeg + rotateWheel) % 360 > 67.5 && (initialDeg + rotateWheel) % 360 <= 90:
-				return 100
-			case (initialDeg + rotateWheel) % 360 > 90 && (initialDeg + rotateWheel) % 360 <= 112.5:
-				return 400
-			case (initialDeg + rotateWheel) % 360 > 112.5 && (initialDeg + rotateWheel) % 360 <= 135:
-				return 150
-			case (initialDeg + rotateWheel) % 360 > 135 && (initialDeg + rotateWheel) % 360 <= 157.5:
-				return 800
-			case (initialDeg + rotateWheel) % 360 > 157.5 && (initialDeg + rotateWheel) % 360 <= 180:
-				return 250
-			case (initialDeg + rotateWheel) % 360 > 180 && (initialDeg + rotateWheel) % 360 <= 202.5:
-				return 350
-			case (initialDeg + rotateWheel) % 360 > 202.5 && (initialDeg + rotateWheel) % 360 <= 225:
-				return 200
-			case (initialDeg + rotateWheel) % 360 > 225 && (initialDeg + rotateWheel) % 360 <= 247.5:
-				return 600
-			case (initialDeg + rotateWheel) % 360 > 247.5 && (initialDeg + rotateWheel) % 360 <= 270:
-				return 100
-			case (initialDeg + rotateWheel) % 360 > 270 && (initialDeg + rotateWheel) % 360 <= 292.5:
-				return 300
-			case (initialDeg + rotateWheel) % 360 > 292.5 && (initialDeg + rotateWheel) % 360 <= 315:
-				return 150
-			case (initialDeg + rotateWheel) % 360 > 315 && (initialDeg + rotateWheel) % 360 <= 337.5:
-				return 1000
-			case (initialDeg + rotateWheel) % 360 > 337.5 && (initialDeg + rotateWheel) % 360 <= 360:
-				return ':('
+	useEffect(() => {
+		if (valueOfSpinnedWheel === 0) {
+			let timer1 = setTimeout(() => {
+				setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
+			}, 500)
+			return () => {
+				clearTimeout(timer1)
+			}
 		}
-	}
+	}, [valueOfSpinnedWheel, setRoundPoints])
 
 	return (
 		<div className='w-full relative flex justify-center items-center'>
@@ -76,7 +52,7 @@ export function Wheel({ isSpinDisabled, setIsSpinDisabled }) {
 				alt=''
 				initial={{ rotate: startSpinDegrees }}
 				animate={{ rotate: rotateWheel }}
-				transition={{ duration: 5, ease: easeInOut }}
+				transition={{ duration: .5, ease: easeInOut }}
 			/>
 			<button
 				disabled={isSpinDisabled}
@@ -87,7 +63,10 @@ export function Wheel({ isSpinDisabled, setIsSpinDisabled }) {
 				className={`absolute bg-transparent border-none font-bold text-base sm:text-xl xl:text-2xl ${
 					isSpinDisabled ? 'text-white' : 'text-red-950'
 				} rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px] xl:w-[140px]`}>
-				{setValue()}
+				{!isSpinDisabled && 'SPIN!'}
+				{!isWheelSpinning && isSpinDisabled && valueOfSpinnedWheel !== 0 && valueOfSpinnedWheel}
+				{!isWheelSpinning && isSpinDisabled && valueOfSpinnedWheel === 0 && ':('}
+				{isWheelSpinning && '...'}
 			</button>
 		</div>
 	)
