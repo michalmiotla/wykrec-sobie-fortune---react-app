@@ -15,7 +15,12 @@ export function LettersBoard({ setChosenLetters, chosenAnswer, setRoundPoints, v
 	))
 
 	const mappedVowels = vowelsArray.map((vowel, index) => (
-		<Vowel letter={vowel} key={index} setChosenLetters={setChosenLetters} chosenAnswer={chosenAnswer}></Vowel>
+		<Vowel
+			letter={vowel}
+			key={index}
+			setChosenLetters={setChosenLetters}
+			chosenAnswer={chosenAnswer}
+			setRoundPoints={setRoundPoints}></Vowel>
 	))
 
 	return (

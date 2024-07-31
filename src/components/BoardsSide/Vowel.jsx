@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
-export function Vowel({ letter, setChosenLetters, chosenAnswer }) {
+export function Vowel({ letter, setChosenLetters, chosenAnswer, setRoundPoints }) {
 	const [isVowelDisabled, setIsVowelDisabled] = useState(false)
 
 	function chooseVowelsToReveal() {
 		setChosenLetters(prev => [...prev, letter])
 		setIsVowelDisabled(true)
+		setRoundPoints(prevpoints => prevpoints - 400)
 	}
 
 	function checkIsVowelsInAnswer() {

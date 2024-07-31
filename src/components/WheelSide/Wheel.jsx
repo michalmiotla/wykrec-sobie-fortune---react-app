@@ -3,8 +3,8 @@ import { easeInOut, motion } from 'framer-motion'
 
 export function Wheel({
 	setRoundPoints,
-	isSpinDisabled,
-	setIsSpinDisabled,
+	disabledButtonsState,
+	setDisabledButtonsState,
 	setRotateWheel,
 	rotateWheel,
 	valueOfSpinnedWheel,
@@ -22,21 +22,21 @@ export function Wheel({
 
 	useEffect(() => {
 		if (isWheelSpinning) {
-			setIsSpinDisabled(true)
+			setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: true })
 			let timer1 = setTimeout(() => {
 				setIsWheelSpinning(false)
-			}, 500)
+			}, 5000)
 			return () => {
 				clearTimeout(timer1)
 			}
 		}
-	}, [isWheelSpinning, setIsSpinDisabled])
+	}, [isWheelSpinning, setDisabledButtonsState])
 
 	useEffect(() => {
 		if (valueOfSpinnedWheel === 0) {
 			let timer1 = setTimeout(() => {
 				setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
-			}, 500)
+			}, 5000)
 			return () => {
 				clearTimeout(timer1)
 			}
@@ -52,20 +52,20 @@ export function Wheel({
 				alt=''
 				initial={{ rotate: startSpinDegrees }}
 				animate={{ rotate: rotateWheel }}
-				transition={{ duration: .5, ease: easeInOut }}
+				transition={{ duration: 5, ease: easeInOut }}
 			/>
 			<button
-				disabled={isSpinDisabled}
+				disabled={disabledButtonsState.spinOnWheel}
 				onClick={() => {
 					setIsWheelSpinning(true)
 					setDegrees()
 				}}
 				className={`absolute bg-transparent border-none font-bold text-base sm:text-xl xl:text-2xl ${
-					isSpinDisabled ? 'text-white' : 'text-red-950'
+					disabledButtonsState.spinOnWheel ? 'text-white' : 'text-red-950'
 				} rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px] xl:w-[140px]`}>
-				{!isSpinDisabled && 'SPIN!'}
-				{!isWheelSpinning && isSpinDisabled && valueOfSpinnedWheel !== 0 && valueOfSpinnedWheel}
-				{!isWheelSpinning && isSpinDisabled && valueOfSpinnedWheel === 0 && ':('}
+				{!disabledButtonsState.spinOnWheel && 'SPIN!'}
+				{!isWheelSpinning && disabledButtonsState.spinOnWheel && valueOfSpinnedWheel !== 0 && valueOfSpinnedWheel}
+				{!isWheelSpinning && disabledButtonsState.spinOnWheel && valueOfSpinnedWheel === 0 && ':('}
 				{isWheelSpinning && '...'}
 			</button>
 		</div>

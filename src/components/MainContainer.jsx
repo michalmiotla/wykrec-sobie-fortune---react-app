@@ -16,7 +16,19 @@ const chosenAnswer = findAnswer()
 
 export function MainContainer() {
 	const [roundPoints, setRoundPoints] = useState(0)
+	const [totalPoints, setTotalPoints] = useState(0)
+	const [round, setRound] = useState(1)
 	const [rotateWheel, setRotateWheel] = useState(0)
+	const [disabledButtonsState, setDisabledButtonsState] = useState({
+		spinOnWheel: false,
+		spinButton: true,
+		buyVowelButton: true,
+		guessAnswerButton: true,
+		consonantsArea: true,
+		vowelsArea: true,
+	})
+
+	console.log(disabledButtonsState.spinOnWheel)
 
 	let initialDeg = 0
 
@@ -59,8 +71,6 @@ export function MainContainer() {
 
 	let valueOfSpinnedWheel = setValue()
 
-	console.log(valueOfSpinnedWheel)
-
 	return (
 		<div className='grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1'>
 			<BoardsSide
@@ -68,6 +78,8 @@ export function MainContainer() {
 				setRoundPoints={setRoundPoints}
 				roundPoints={roundPoints}
 				chosenAnswer={chosenAnswer}
+				round={round}
+				totalPoints={totalPoints}
 			/>
 			<WheelSide
 				initialDeg={initialDeg}
@@ -76,6 +88,11 @@ export function MainContainer() {
 				rotateWheel={rotateWheel}
 				setRoundPoints={setRoundPoints}
 				chosenAnswer={chosenAnswer}
+				setRound={setRound}
+				setTotalPoints={setTotalPoints}
+				roundPoints={roundPoints}
+				setDisabledButtonsState={setDisabledButtonsState}
+				disabledButtonsState={disabledButtonsState}
 			/>
 		</div>
 	)

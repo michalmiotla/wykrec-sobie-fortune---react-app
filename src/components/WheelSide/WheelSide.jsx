@@ -10,8 +10,12 @@ export function WheelSide({
 	rotateWheel,
 	valueOfSpinnedWheel,
 	initialDeg,
+	setRound,
+	setTotalPoints,
+	roundPoints,
+	setDisabledButtonsState,
+	disabledButtonsState,
 }) {
-	const [isSpinDisabled, setIsSpinDisabled] = useState(true)
 	const [showGuessAnswerInput, setShowGuessAnswerInput] = useState(false)
 
 	return (
@@ -21,13 +25,24 @@ export function WheelSide({
 				valueOfSpinnedWheel={valueOfSpinnedWheel}
 				setRotateWheel={setRotateWheel}
 				rotateWheel={rotateWheel}
-				isSpinDisabled={isSpinDisabled}
-				setIsSpinDisabled={setIsSpinDisabled}
 				setRoundPoints={setRoundPoints}
+				setDisabledButtonsState={setDisabledButtonsState}
+				disabledButtonsState={disabledButtonsState}
 			/>
-			<Buttons setShowGuessAnswerInput={setShowGuessAnswerInput} setIsSpinDisabled={setIsSpinDisabled} />
+			<Buttons
+				setDisabledButtonsState={setDisabledButtonsState}
+				disabledButtonsState={disabledButtonsState}
+				setShowGuessAnswerInput={setShowGuessAnswerInput}
+			/>
 			{showGuessAnswerInput && (
-				<GuessAnswerInput setShowGuessAnswerInput={setShowGuessAnswerInput} chosenAnswer={chosenAnswer} />
+				<GuessAnswerInput
+					setShowGuessAnswerInput={setShowGuessAnswerInput}
+					chosenAnswer={chosenAnswer}
+					setRoundPoints={setRoundPoints}
+					setRound={setRound}
+					setTotalPoints={setTotalPoints}
+					roundPoints={roundPoints}
+				/>
 			)}
 		</div>
 	)

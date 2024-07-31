@@ -1,6 +1,6 @@
 import { Letter } from './Letter'
 
-export function AnswerBoard({ chosenLetters, chosenAnswer }) {
+export function AnswerBoard({ chosenLetters, chosenAnswer, round }) {
 	const showedAnswer = chosenAnswer.splittedAnswer.map((word, index) => (
 		<div className='flex justify-center items-center flex-wrap w-full' key={index}>
 			{word.map((letter, index) => (
@@ -19,7 +19,7 @@ export function AnswerBoard({ chosenLetters, chosenAnswer }) {
 			<div className='flex justify-center items-center flex-wrap w-[95%] h-[60%]'>{showedAnswer}</div>
 			<div className='flex justify-between w-[80%] h-[15%]'>
 				<p className='text-base sm:text-xl xl:text-2xl '>RUNDA:</p>
-				<p className='font-bold text-base sm:text-xl xl:text-2xl'>2/3</p>
+				<p className='font-bold text-base sm:text-xl xl:text-2xl'>{round}/3</p>
 			</div>
 		</div>
 	)
