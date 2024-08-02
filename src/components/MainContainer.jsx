@@ -28,8 +28,6 @@ export function MainContainer() {
 		vowelsArea: true,
 	})
 
-	console.log(disabledButtonsState.spinOnWheel)
-
 	let initialDeg = 0
 
 	function setValue() {
@@ -80,6 +78,8 @@ export function MainContainer() {
 				chosenAnswer={chosenAnswer}
 				round={round}
 				totalPoints={totalPoints}
+				disabledButtonsState={disabledButtonsState}
+				setDisabledButtonsState={setDisabledButtonsState}
 			/>
 			<WheelSide
 				initialDeg={initialDeg}

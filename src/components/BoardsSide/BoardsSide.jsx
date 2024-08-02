@@ -3,7 +3,16 @@ import { AnswerBoard } from './AnswerBoard'
 import { LettersBoard } from './LettersBoard'
 import { useState } from 'react'
 
-export function BoardsSide({ chosenAnswer, roundPoints, setRoundPoints, valueOfSpinnedWheel, round, totalPoints }) {
+export function BoardsSide({
+	chosenAnswer,
+	roundPoints,
+	setRoundPoints,
+	valueOfSpinnedWheel,
+	round,
+	totalPoints,
+	disabledButtonsState,
+	setDisabledButtonsState,
+}) {
 	const [chosenLetters, setChosenLetters] = useState([])
 
 	return (
@@ -15,6 +24,9 @@ export function BoardsSide({ chosenAnswer, roundPoints, setRoundPoints, valueOfS
 				setRoundPoints={setRoundPoints}
 				setChosenLetters={setChosenLetters}
 				chosenAnswer={chosenAnswer}
+				disabledButtonsState={disabledButtonsState}
+				setDisabledButtonsState={setDisabledButtonsState}
+				roundPoints={roundPoints}
 			/>
 		</div>
 	)

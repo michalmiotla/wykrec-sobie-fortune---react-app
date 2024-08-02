@@ -1,6 +1,12 @@
-export function SpinButton({ setIsSpinDisabled, setDisabledButtonsState, disabledButtonsState }) {
+export function SpinButton({ setDisabledButtonsState, disabledButtonsState }) {
 	function spinTheWheel() {
-		setIsSpinDisabled(false)
+		setDisabledButtonsState({
+			...disabledButtonsState,
+			spinOnWheel: false,
+			spinButton: true,
+			buyVowelButton: true,
+			guessAnswerButton: true,
+		})
 	}
 
 	return (

@@ -3,7 +3,15 @@ import { vowelsArray } from '../../utils/vowelsArray'
 import { Consonant } from '../BoardsSide/Consonant'
 import { Vowel } from './Vowel'
 
-export function LettersBoard({ setChosenLetters, chosenAnswer, setRoundPoints, valueOfSpinnedWheel }) {
+export function LettersBoard({
+	setChosenLetters,
+	chosenAnswer,
+	setRoundPoints,
+	valueOfSpinnedWheel,
+	disabledButtonsState,
+	setDisabledButtonsState,
+	roundPoints,
+}) {
 	const mappedConsonants = consonantsArray.map((consonant, index) => (
 		<Consonant
 			valueOfSpinnedWheel={valueOfSpinnedWheel}
@@ -11,7 +19,10 @@ export function LettersBoard({ setChosenLetters, chosenAnswer, setRoundPoints, v
 			key={index}
 			setChosenLetters={setChosenLetters}
 			chosenAnswer={chosenAnswer}
-			setRoundPoints={setRoundPoints}></Consonant>
+			setRoundPoints={setRoundPoints}
+			roundPoints={roundPoints}
+			disabledButtonsState={disabledButtonsState}
+			setDisabledButtonsState={setDisabledButtonsState}></Consonant>
 	))
 
 	const mappedVowels = vowelsArray.map((vowel, index) => (
@@ -20,7 +31,9 @@ export function LettersBoard({ setChosenLetters, chosenAnswer, setRoundPoints, v
 			key={index}
 			setChosenLetters={setChosenLetters}
 			chosenAnswer={chosenAnswer}
-			setRoundPoints={setRoundPoints}></Vowel>
+			setRoundPoints={setRoundPoints}
+			disabledButtonsState={disabledButtonsState}
+			setDisabledButtonsState={setDisabledButtonsState}></Vowel>
 	))
 
 	return (
@@ -29,8 +42,15 @@ export function LettersBoard({ setChosenLetters, chosenAnswer, setRoundPoints, v
 				<p className='text-base sm:text-xl xl:text-2xl '>WYBIERZ LITERĘ:</p>
 			</div>
 			<div className='flex flex-col items-center justify-around w-[95%] h-[60%]'>
-				<div className='flex justify-center items-center flex-wrap'>{mappedConsonants}</div>
-				<div className='flex justify-center items-center'>{mappedVowels}</div>
+				<div className='relative flex justify-center items-center flex-wrap'>
+					{mappedConsonants}
+					{disabledButtonsState.consonantsArea && <div className='absolute bg-red-200 h-full w-full'></div>}
+				</div>
+
+				<div className='relative flex justify-center items-center'>
+					{mappedVowels}
+					{disabledButtonsState.vowelsArea && <div className='absolute bg-blue-200 h-full w-full'></div>}
+				</div>
 			</div>
 			<div className='flex justify-between w-[80%] h-[15%]'>
 				<p className='text-base sm:text-xl xl:text-2xl '>DO KONCA RUNDY:</p>

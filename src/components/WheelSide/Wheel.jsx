@@ -24,7 +24,10 @@ export function Wheel({
 		if (isWheelSpinning) {
 			setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: true })
 			let timer1 = setTimeout(() => {
-				setIsWheelSpinning(false)
+				setIsWheelSpinning(false),
+					valueOfSpinnedWheel !== 0
+						? setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: true, consonantsArea: false })
+						: setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: false })
 			}, 5000)
 			return () => {
 				clearTimeout(timer1)
