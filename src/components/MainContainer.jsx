@@ -1,18 +1,7 @@
 import { BoardsSide } from './BoardsSide/BoardsSide'
 import { WheelSide } from './WheelSide/WheelSide'
-import { answersArray } from '../utils/answersArray'
+import { chosenAnswer } from '../utils/findAnswer'
 import { useState } from 'react'
-
-function findAnswer() {
-	const index = Math.floor(Math.random() * answersArray.length)
-	const answer = answersArray[index].answer
-	const category = answersArray[index].category
-	const fullAnswer = answersArray[index].answer.split(' ')
-	const splittedAnswer = fullAnswer.map(word => word.split(''))
-	return { answer, category, fullAnswer, splittedAnswer }
-}
-
-const chosenAnswer = findAnswer()
 
 export function MainContainer() {
 	const [roundPoints, setRoundPoints] = useState(0)
@@ -27,6 +16,8 @@ export function MainContainer() {
 		consonantsArea: true,
 		vowelsArea: true,
 	})
+
+	console.log(chosenAnswer)
 
 	let initialDeg = 0
 
@@ -76,10 +67,12 @@ export function MainContainer() {
 				setRoundPoints={setRoundPoints}
 				roundPoints={roundPoints}
 				chosenAnswer={chosenAnswer}
+				setRound={setRound}
 				round={round}
 				totalPoints={totalPoints}
 				disabledButtonsState={disabledButtonsState}
 				setDisabledButtonsState={setDisabledButtonsState}
+				setTotalPoints={setTotalPoints}
 			/>
 			<WheelSide
 				initialDeg={initialDeg}

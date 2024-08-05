@@ -1,6 +1,13 @@
 import { useState } from 'react'
 
-export function Vowel({ letter, setChosenLetters, chosenAnswer, setRoundPoints }) {
+export function Vowel({
+	letter,
+	setChosenLetters,
+	chosenAnswer,
+	setRoundPoints,
+	disabledButtonsState,
+	setDisabledButtonsState,
+}) {
 	const [isVowelDisabled, setIsVowelDisabled] = useState(false)
 
 	function chooseVowelsToReveal() {
@@ -16,6 +23,14 @@ export function Vowel({ letter, setChosenLetters, chosenAnswer, setRoundPoints }
 		} else {
 			alert('nie ma literki w haśle')
 		}
+
+		setDisabledButtonsState({
+			...disabledButtonsState,
+			spinButton: false,
+			buyVowelButton: false,
+			guessAnswerButton: false,
+			vowelsArea: true,
+		})
 	}
 
 	return (
@@ -24,7 +39,7 @@ export function Vowel({ letter, setChosenLetters, chosenAnswer, setRoundPoints }
 				chooseVowelsToReveal(), checkIsVowelsInAnswer()
 			}}
 			disabled={isVowelDisabled}
-			className='bg-light-khaki border-2 font-bold text-md sm:text-xl md:text-2xl lg:text-xl xl:text-2xl border-black aspect-[5/7] w-5 sm:w-7 md:w-9 lg:w-7 xl:w-9 m-[2px] hover:bg-light-beige transition-colors duration-300'>
+			className='bg-light-khaki border-2 font-bold text-md sm:text-xl md:text-2xl lg:text-xl xl:text-2xl border-black aspect-[5/7] w-5 sm:w-7 md:w-9 lg:w-7 xl:w-9 m-[2px] hover:bg-light-beige transition-colors duration-300 disabled:bg-light-red'>
 			{letter}
 		</button>
 	)

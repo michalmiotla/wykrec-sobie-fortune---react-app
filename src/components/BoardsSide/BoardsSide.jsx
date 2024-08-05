@@ -7,7 +7,9 @@ export function BoardsSide({
 	chosenAnswer,
 	roundPoints,
 	setRoundPoints,
+	setTotalPoints,
 	valueOfSpinnedWheel,
+	setRound,
 	round,
 	totalPoints,
 	disabledButtonsState,
@@ -27,6 +29,8 @@ export function BoardsSide({
 				disabledButtonsState={disabledButtonsState}
 				setDisabledButtonsState={setDisabledButtonsState}
 				roundPoints={roundPoints}
+				setRound={setRound}
+				setTotalPoints={setTotalPoints}
 			/>
 		</div>
 	)
