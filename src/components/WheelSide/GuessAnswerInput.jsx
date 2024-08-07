@@ -8,6 +8,7 @@ export function GuessAnswerInput({
 	setRound,
 	setTotalPoints,
 	roundPoints,
+	resetGame,
 }) {
 	const [playerGuess, setPlayerGuess] = useState('')
 	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
@@ -63,6 +64,7 @@ export function GuessAnswerInput({
 							setTotalPoints={setTotalPoints}
 							roundPoints={roundPoints}
 							setRoundPoints={setRoundPoints}
+							resetGame={resetGame}
 						/>
 					)}
 				</div>

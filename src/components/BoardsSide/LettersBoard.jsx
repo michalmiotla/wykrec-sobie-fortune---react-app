@@ -15,6 +15,7 @@ export function LettersBoard({
 	roundPoints,
 	setRound,
 	setTotalPoints,
+	chosenLetters,
 }) {
 	const [roundTimeMinutes, setRoundTimeMinutes] = useState(3)
 	const [roundTimeSeconds, setRoundTimeSeconds] = useState(0)
@@ -47,6 +48,7 @@ export function LettersBoard({
 			letter={consonant}
 			key={index}
 			setChosenLetters={setChosenLetters}
+			chosenLetters={chosenLetters}
 			chosenAnswer={chosenAnswer}
 			setRoundPoints={setRoundPoints}
 			roundPoints={roundPoints}

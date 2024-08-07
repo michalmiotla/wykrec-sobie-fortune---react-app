@@ -28,7 +28,7 @@ export function Wheel({
 					valueOfSpinnedWheel !== 0
 						? setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: true, consonantsArea: false })
 						: setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: false })
-			}, 5000)
+			}, 500)
 			return () => {
 				clearTimeout(timer1)
 			}
@@ -39,7 +39,7 @@ export function Wheel({
 		if (valueOfSpinnedWheel === 0) {
 			let timer1 = setTimeout(() => {
 				setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
-			}, 5000)
+			}, 500)
 			return () => {
 				clearTimeout(timer1)
 			}
@@ -55,7 +55,7 @@ export function Wheel({
 				alt=''
 				initial={{ rotate: startSpinDegrees }}
 				animate={{ rotate: rotateWheel }}
-				transition={{ duration: 5, ease: easeInOut }}
+				transition={{ duration: 0.5, ease: easeInOut }}
 			/>
 			<button
 				disabled={disabledButtonsState.spinOnWheel}

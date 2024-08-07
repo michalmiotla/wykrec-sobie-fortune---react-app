@@ -25,6 +25,7 @@ export function BoardsSide({
 				valueOfSpinnedWheel={valueOfSpinnedWheel}
 				setRoundPoints={setRoundPoints}
 				setChosenLetters={setChosenLetters}
+				chosenLetters={chosenLetters}
 				chosenAnswer={chosenAnswer}
 				disabledButtonsState={disabledButtonsState}
 				setDisabledButtonsState={setDisabledButtonsState}

@@ -15,6 +15,7 @@ export function WheelSide({
 	roundPoints,
 	setDisabledButtonsState,
 	disabledButtonsState,
+	resetGame,
 }) {
 	const [showGuessAnswerInput, setShowGuessAnswerInput] = useState(false)
 
@@ -42,6 +43,7 @@ export function WheelSide({
 					setRound={setRound}
 					setTotalPoints={setTotalPoints}
 					roundPoints={roundPoints}
+					resetGame={resetGame}
 				/>
 			)}
 		</div>

@@ -1,9 +1,10 @@
 import { BoardsSide } from './BoardsSide/BoardsSide'
 import { WheelSide } from './WheelSide/WheelSide'
-import { chosenAnswer } from '../utils/findAnswer'
+import { answerToGuess, findAnswer } from '../utils/findAnswer'
 import { useState } from 'react'
 
 export function MainContainer() {
+	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
 	const [roundPoints, setRoundPoints] = useState(0)
 	const [totalPoints, setTotalPoints] = useState(0)
 	const [round, setRound] = useState(1)
@@ -16,8 +17,6 @@ export function MainContainer() {
 		consonantsArea: true,
 		vowelsArea: true,
 	})
-
-	console.log(chosenAnswer)
 
 	let initialDeg = 0
 
@@ -60,8 +59,15 @@ export function MainContainer() {
 
 	let valueOfSpinnedWheel = setValue()
 
+	function resetGame() {
+		setRound(prevRound => (prevRound < 3 ? prevRound + 1 : prevRound))
+		setTotalPoints(prevPoints => prevPoints + roundPoints)
+		setRoundPoints(0)
+		setChosenAnswer(findAnswer())
+	}
+
 	return (
-		<div className='grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1'>
+		<div className='grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 mb-20'>
 			<BoardsSide
 				valueOfSpinnedWheel={valueOfSpinnedWheel}
 				setRoundPoints={setRoundPoints}
@@ -86,6 +92,7 @@ export function MainContainer() {
 				roundPoints={roundPoints}
 				setDisabledButtonsState={setDisabledButtonsState}
 				disabledButtonsState={disabledButtonsState}
+				resetGame={resetGame}
 			/>
 		</div>
 	)
