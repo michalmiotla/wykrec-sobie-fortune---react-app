@@ -5,18 +5,26 @@ export function GuessAnswerInput({
 	setShowGuessAnswerInput,
 	chosenAnswer,
 	setRoundPoints,
-	setRound,
-	setTotalPoints,
-	roundPoints,
 	resetGame,
+	roundTimeMinutes,
 }) {
 	const [playerGuess, setPlayerGuess] = useState('')
 	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
 
 	function checkPlayerGuess() {
+		let pointsFromGoodAnswer
+
+		if (roundTimeMinutes === 2) {
+			pointsFromGoodAnswer = 3000
+		} else if (roundTimeMinutes === 1) {
+			pointsFromGoodAnswer = 2000
+		} else if (roundTimeMinutes === 0) {
+			pointsFromGoodAnswer = 1000
+		}
+
 		if (playerGuess.toUpperCase() === chosenAnswer.answer) {
 			setIsAnswerCorrect(true)
-			setRoundPoints(prevPoints => prevPoints + 1000)
+			setRoundPoints(prevPoints => prevPoints + pointsFromGoodAnswer)
 		} else {
 			setIsAnswerCorrect(false)
 		}
@@ -58,14 +66,10 @@ export function GuessAnswerInput({
 							</button>
 						</>
 					) : (
-						<NextRound
-							setShowGuessAnswerInput={setShowGuessAnswerInput}
-							setRound={setRound}
-							setTotalPoints={setTotalPoints}
-							roundPoints={roundPoints}
-							setRoundPoints={setRoundPoints}
-							resetGame={resetGame}
-						/>
+						<>
+							<p>{}</p>
+							<NextRound setShowGuessAnswerInput={setShowGuessAnswerInput} resetGame={resetGame} />
+						</>
 					)}
 				</div>
 			</div>

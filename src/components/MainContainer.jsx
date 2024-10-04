@@ -1,7 +1,9 @@
 import { BoardsSide } from './BoardsSide/BoardsSide'
 import { WheelSide } from './WheelSide/WheelSide'
 import { answerToGuess, findAnswer } from '../utils/findAnswer'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TimeIsUp } from './BoardsSide/TimeIsUp'
+import { setValueOfSpinnedWheel } from '../utils/setValueOfSpinnedWheel'
 
 export function MainContainer() {
 	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
@@ -9,76 +11,187 @@ export function MainContainer() {
 	const [totalPoints, setTotalPoints] = useState(0)
 	const [round, setRound] = useState(1)
 	const [rotateWheel, setRotateWheel] = useState(0)
+	const [chosenLetters, setChosenLetters] = useState([])
+	const [isGameRestarted, setIsGameRestarted] = useState(false)
+	const [roundTimeMinutes, setRoundTimeMinutes] = useState(3)
+	const [roundTimeSeconds, setRoundTimeSeconds] = useState(0)
+	const [isTimeRunning, setIsTimeRunning] = useState(true)
 	const [disabledButtonsState, setDisabledButtonsState] = useState({
 		spinOnWheel: false,
 		spinButton: true,
 		buyVowelButton: true,
-		guessAnswerButton: true,
+		guessAnswerButton: false,
 		consonantsArea: true,
 		vowelsArea: true,
 	})
 
-	let initialDeg = 0
+	useEffect(() => {
+		let timeInterval
 
-	function setValue() {
-		switch (true) {
-			case (initialDeg + rotateWheel) % 360 > 0 && (initialDeg + rotateWheel) % 360 <= 22.5:
-				return 500
-			case (initialDeg + rotateWheel) % 360 > 22.5 && (initialDeg + rotateWheel) % 360 <= 45:
-				return 200
-			case (initialDeg + rotateWheel) % 360 > 45 && (initialDeg + rotateWheel) % 360 <= 67.5:
-				return 700
-			case (initialDeg + rotateWheel) % 360 > 67.5 && (initialDeg + rotateWheel) % 360 <= 90:
-				return 100
-			case (initialDeg + rotateWheel) % 360 > 90 && (initialDeg + rotateWheel) % 360 <= 112.5:
-				return 400
-			case (initialDeg + rotateWheel) % 360 > 112.5 && (initialDeg + rotateWheel) % 360 <= 135:
-				return 150
-			case (initialDeg + rotateWheel) % 360 > 135 && (initialDeg + rotateWheel) % 360 <= 157.5:
-				return 800
-			case (initialDeg + rotateWheel) % 360 > 157.5 && (initialDeg + rotateWheel) % 360 <= 180:
-				return 250
-			case (initialDeg + rotateWheel) % 360 > 180 && (initialDeg + rotateWheel) % 360 <= 202.5:
-				return 350
-			case (initialDeg + rotateWheel) % 360 > 202.5 && (initialDeg + rotateWheel) % 360 <= 225:
-				return 200
-			case (initialDeg + rotateWheel) % 360 > 225 && (initialDeg + rotateWheel) % 360 <= 247.5:
-				return 600
-			case (initialDeg + rotateWheel) % 360 > 247.5 && (initialDeg + rotateWheel) % 360 <= 270:
-				return 100
-			case (initialDeg + rotateWheel) % 360 > 270 && (initialDeg + rotateWheel) % 360 <= 292.5:
-				return 300
-			case (initialDeg + rotateWheel) % 360 > 292.5 && (initialDeg + rotateWheel) % 360 <= 315:
-				return 150
-			case (initialDeg + rotateWheel) % 360 > 315 && (initialDeg + rotateWheel) % 360 <= 337.5:
-				return 1000
-			case (initialDeg + rotateWheel) % 360 > 337.5 && (initialDeg + rotateWheel) % 360 <= 360:
-				return 0
+		if (isTimeRunning) {
+			timeInterval = setInterval(() => {
+				if (roundTimeSeconds !== 0) {
+					setRoundTimeSeconds(prevTime => prevTime - 1)
+				} else if (roundTimeSeconds === 0) {
+					if (roundTimeMinutes !== 0) {
+						setRoundTimeSeconds(prevTime => prevTime + 59)
+						setRoundTimeMinutes(prevTime => prevTime - 1)
+					} else {
+						setIsTimeRunning(false)
+					}
+				}
+
+				if (isGameRestarted) {
+					setRoundTimeMinutes(3)
+					setRoundTimeSeconds(0)
+				}
+			}, 1000)
 		}
-	}
 
-	let valueOfSpinnedWheel = setValue()
+		return () => clearInterval(timeInterval)
+	}, [isGameRestarted, isTimeRunning, roundTimeMinutes, roundTimeSeconds])
+
+	let initialDeg = 0
+	let valueOfSpinnedWheel = setValueOfSpinnedWheel(initialDeg, rotateWheel)
 
 	function resetGame() {
+		setIsGameRestarted(true)
 		setRound(prevRound => (prevRound < 3 ? prevRound + 1 : prevRound))
 		setTotalPoints(prevPoints => prevPoints + roundPoints)
 		setRoundPoints(0)
 		setChosenAnswer(findAnswer())
+		setChosenLetters([])
+		setDisabledButtonsState({
+			spinOnWheel: false,
+			spinButton: true,
+			buyVowelButton: true,
+			guessAnswerButton: false,
+			consonantsArea: true,
+			vowelsArea: true,
+		})
 	}
+
+	function handleConsonants(letter) {
+		setChosenLetters(prev => [...prev, letter])
+
+		function checkIsConsonantInAnswer(letter) {
+			const answerSplitted = [...chosenAnswer.answer]
+			const answer = chosenAnswer.answer
+
+			answerSplitted.forEach(el => {
+				if (el === letter) {
+					setRoundPoints(prevPoints => prevPoints + valueOfSpinnedWheel)
+				}
+			})
+
+			!answer.includes(letter) && alert(`Litera ${letter} nie znajduje się w haśle!`)
+		}
+
+		checkIsConsonantInAnswer(letter)
+		setDisabledButtonsState({
+			...disabledButtonsState,
+			consonantsArea: true,
+			guessAnswerButton: false,
+		})
+	}
+
+	function handleVowels(letter) {
+		function chooseVowelsToReveal(letter) {
+			setRoundPoints(prevpoints => prevpoints - 400)
+			setChosenLetters(prev => [...prev, letter])
+
+			setDisabledButtonsState({
+				...disabledButtonsState,
+				guessAnswerButton: false,
+				vowelsArea: true,
+			})
+		}
+
+		function checkIsVowelsInAnswer(letter) {
+			const answer = chosenAnswer.answer
+			answer.includes(letter) || alert('nie ma literki w haśle')
+		}
+
+		chooseVowelsToReveal(letter)
+		checkIsVowelsInAnswer(letter)
+	}
+
+	useEffect(() => {
+		const answer = [...chosenAnswer.answer]
+		const consonantsInAnswer = answer.filter(
+			a =>
+				a !== 'A' &&
+				a !== 'Ą' &&
+				a !== 'E' &&
+				a !== 'Ę' &&
+				a !== 'I' &&
+				a !== 'O' &&
+				a !== 'Ó' &&
+				a !== 'U' &&
+				a !== 'Y' &&
+				a !== ' '
+		)
+
+		const remainingConsonants = []
+		consonantsInAnswer.forEach(c => chosenLetters.includes(c) && remainingConsonants.push(c))
+
+		const vowelsInAnswer = answer.filter(
+			a =>
+				a === 'A' ||
+				a === 'Ą' ||
+				a === 'E' ||
+				a === 'Ę' ||
+				a === 'I' ||
+				a === 'O' ||
+				a === 'Ó' ||
+				a === 'U' ||
+				a === 'Y'
+		)
+
+		const remainingVowels = []
+
+		vowelsInAnswer.forEach(c => chosenLetters.includes(c) && remainingVowels.push(c))
+
+		if (remainingConsonants.length >= consonantsInAnswer.length) {
+			setDisabledButtonsState({
+				...disabledButtonsState,
+				spinButton: true,
+				buyVowelButton: roundPoints >= 400 && !(remainingVowels.length >= vowelsInAnswer.length) ? false : true,
+			})
+		} else if (remainingVowels.length >= vowelsInAnswer.length) {
+			setDisabledButtonsState({
+				...disabledButtonsState,
+				spinButton: remainingConsonants.length >= consonantsInAnswer.length ? true : false,
+				buyVowelButton: true,
+			})
+		} else if (chosenLetters.length === 0) {
+			setDisabledButtonsState({
+				...disabledButtonsState,
+				spinButton: true,
+				buyVowelButton: roundPoints >= 400 ? false : true,
+			})
+		} else {
+			setDisabledButtonsState({
+				...disabledButtonsState,
+				spinButton: false,
+				buyVowelButton: roundPoints >= 400 ? false : true,
+			})
+		}
+	}, [chosenLetters, roundPoints])
 
 	return (
 		<div className='grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 mb-20'>
 			<BoardsSide
-				valueOfSpinnedWheel={valueOfSpinnedWheel}
-				setRoundPoints={setRoundPoints}
 				roundPoints={roundPoints}
 				chosenAnswer={chosenAnswer}
-				setRound={setRound}
 				round={round}
 				totalPoints={totalPoints}
 				disabledButtonsState={disabledButtonsState}
-				setDisabledButtonsState={setDisabledButtonsState}
-				setTotalPoints={setTotalPoints}
+				chosenLetters={chosenLetters}
+				roundTimeMinutes={roundTimeMinutes}
+				roundTimeSeconds={roundTimeSeconds}
+				handleConsonants={handleConsonants}
+				handleVowels={handleVowels}
 			/>
 			<WheelSide
 				initialDeg={initialDeg}
@@ -87,13 +200,15 @@ export function MainContainer() {
 				rotateWheel={rotateWheel}
 				setRoundPoints={setRoundPoints}
 				chosenAnswer={chosenAnswer}
-				setRound={setRound}
-				setTotalPoints={setTotalPoints}
-				roundPoints={roundPoints}
 				setDisabledButtonsState={setDisabledButtonsState}
 				disabledButtonsState={disabledButtonsState}
 				resetGame={resetGame}
+				setIsGameRestarted={setIsGameRestarted}
+				roundTimeMinutes={roundTimeMinutes}
 			/>
+			{!isTimeRunning && roundTimeSeconds === 0 && (
+				<TimeIsUp setIsTimeRunning={setIsTimeRunning} setRoundTimeMinutes={setRoundTimeMinutes} resetGame={resetGame} />
+			)}
 		</div>
 	)
 }

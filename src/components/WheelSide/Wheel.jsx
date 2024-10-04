@@ -9,6 +9,7 @@ export function Wheel({
 	rotateWheel,
 	valueOfSpinnedWheel,
 	initialDeg,
+	setIsGameRestarted,
 }) {
 	const [isWheelSpinning, setIsWheelSpinning] = useState(false)
 	const [startSpinDegrees, setStartSpinDegrees] = useState(0)
@@ -28,7 +29,7 @@ export function Wheel({
 					valueOfSpinnedWheel !== 0
 						? setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: true, consonantsArea: false })
 						: setDisabledButtonsState({ ...disabledButtonsState, spinOnWheel: false })
-			}, 500)
+			}, 5000)
 			return () => {
 				clearTimeout(timer1)
 			}
@@ -39,7 +40,7 @@ export function Wheel({
 		if (valueOfSpinnedWheel === 0) {
 			let timer1 = setTimeout(() => {
 				setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
-			}, 500)
+			}, 5000)
 			return () => {
 				clearTimeout(timer1)
 			}
@@ -55,17 +56,19 @@ export function Wheel({
 				alt=''
 				initial={{ rotate: startSpinDegrees }}
 				animate={{ rotate: rotateWheel }}
-				transition={{ duration: 0.5, ease: easeInOut }}
+				transition={{ duration: 5, ease: easeInOut }}
 			/>
 			<button
 				disabled={disabledButtonsState.spinOnWheel}
 				onClick={() => {
 					setIsWheelSpinning(true)
 					setDegrees()
+					setIsGameRestarted(false)
+					setDisabledButtonsState({ ...disabledButtonsState, guessAnswerButton: true })
 				}}
-				className={`absolute bg-transparent border-none font-bold text-base sm:text-xl xl:text-2xl ${
-					disabledButtonsState.spinOnWheel ? 'text-white' : 'text-red-950'
-				} rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px] xl:w-[140px]`}>
+				className={`absolute bg-transparent border-none font-bold text-base sm:text-xl xl:text-2xl text-white rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px] xl:w-[140px] ${
+					!disabledButtonsState.spinOnWheel && 'animate-pulse'
+				}`}>
 				{!disabledButtonsState.spinOnWheel && 'SPIN!'}
 				{!isWheelSpinning && disabledButtonsState.spinOnWheel && valueOfSpinnedWheel !== 0 && valueOfSpinnedWheel}
 				{!isWheelSpinning && disabledButtonsState.spinOnWheel && valueOfSpinnedWheel === 0 && ':('}

@@ -14,6 +14,7 @@ export default {
 			},
 			backgroundImage: {
 				painted: "url('/bg-paint.png')",
+				pattern: "url('/bg-pattern.jpg')",
 			},
 		},
 	},

@@ -1,9 +1,5 @@
 export function NextRound({
 	setShowGuessAnswerInput,
-	// setRound,
-	// setTotalPoints,
-	// roundPoints,
-	// setRoundPoints,
 	resetGame,
 }) {
 	return (

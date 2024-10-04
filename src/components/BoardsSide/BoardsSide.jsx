@@ -1,37 +1,30 @@
 import { Results } from './Results'
 import { AnswerBoard } from './AnswerBoard'
 import { LettersBoard } from './LettersBoard'
-import { useState } from 'react'
 
 export function BoardsSide({
 	chosenAnswer,
 	roundPoints,
-	setRoundPoints,
-	setTotalPoints,
-	valueOfSpinnedWheel,
-	setRound,
 	round,
 	totalPoints,
 	disabledButtonsState,
-	setDisabledButtonsState,
+	chosenLetters,
+	roundTimeSeconds,
+	roundTimeMinutes,
+	handleConsonants,
+	handleVowels,
 }) {
-	const [chosenLetters, setChosenLetters] = useState([])
-
 	return (
 		<div className='flex flex-col items-center lg:col-start-2 lg:col-end-3 gap-4 mb-8 lg:mb-0'>
 			<Results roundPoints={roundPoints} totalPoints={totalPoints} />
 			<AnswerBoard round={round} chosenLetters={chosenLetters} chosenAnswer={chosenAnswer} />
 			<LettersBoard
-				valueOfSpinnedWheel={valueOfSpinnedWheel}
-				setRoundPoints={setRoundPoints}
-				setChosenLetters={setChosenLetters}
 				chosenLetters={chosenLetters}
-				chosenAnswer={chosenAnswer}
 				disabledButtonsState={disabledButtonsState}
-				setDisabledButtonsState={setDisabledButtonsState}
-				roundPoints={roundPoints}
-				setRound={setRound}
-				setTotalPoints={setTotalPoints}
+				roundTimeSeconds={roundTimeSeconds}
+				roundTimeMinutes={roundTimeMinutes}
+				handleConsonants={handleConsonants}
+				handleVowels={handleVowels}
 			/>
 		</div>
 	)

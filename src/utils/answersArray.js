@@ -1,14 +1,38 @@
 export const answersArray = [
 	{
-		category: 'MUZYKA',
-		answer: 'ZACZNIJ OD BACHA',
+		category: 'MUZYKA POLSKA',
+		answers: [
+			'ZACZNIJ OD BACHA',
+			'BYŁAŚ SERCA BICIEM',
+			'KRYZYSOWA NARZECZONA',
+			'FORMACJA NIEŻYWYCH SCHABUFF',
+			'UCIEKAJ MOJE SERCE',
+		],
 	},
 	{
 		category: 'KINO ŚWIATOWE',
-		answer: 'PRZEMINĘŁO Z WIATREM',
+		answers: ['OJCIEC CHRZESTNY', 'CZŁOWIEK Z BLIZNĄ', 'BĘKARTY WOJNY', 'PRZEMINĘŁO Z WIATREM', 'HELIKOPTER W OGNIU'],
 	},
 	{
 		category: 'SPORT',
-		answer: 'KOMBINACJA NORWESKA',
+		answers: ['KOMBINACJA NORWESKA', 'SEBASTIAN KAWA', 'GIMNASTYKA SPORTOWA', 'KOLARSTWO SZOSOWE', 'CONOR MCGREGOR'],
+	},
+	{
+		category: 'MUZYKA ŚWIATOWA',
+		answers: ['LOUIS ARMSTRONG', 'STAIRWAY TO HEAVEN', 'CARELESS WHISPER', 'MODERN TALKING', 'DEPECHE MODE'],
+	},
+	{
+		category: 'GEOGRAFIA',
+		answers: ['WYŻYNA ŚLĄSKA', 'TATRZAŃSKI PARK NARODOWY', 'ZAGŁĘBIE RUHRY', 'MOUNT EVEREST', 'GÓRA KOŚCIUSZKI'],
+	},
+	{
+		category: 'HISTORIA',
+		answers: [
+			'OKTAWIAN AUGUST',
+			'BITWA POD CEDYNIĄ',
+			'TRAKTAT WERSALSKI',
+			'OBRADY OKRĄGŁEGO STOŁU',
+			'POWSTANIE STYCZNIOWE',
+		],
 	},
 ]
