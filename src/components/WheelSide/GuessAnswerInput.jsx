@@ -5,16 +5,19 @@ export function GuessAnswerInput({
 	setShowGuessAnswerInput,
 	chosenAnswer,
 	setRoundPoints,
-	resetGame,
+	resetRound,
 	roundTimeMinutes,
+	setIsTimeRunning,
+	setIsAnswerCorrect,
+	isAnswerCorrect,
 }) {
 	const [playerGuess, setPlayerGuess] = useState('')
-	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
+	const [bonusPoints, setBonusPoints] = useState(0)
 
 	function checkPlayerGuess() {
 		let pointsFromGoodAnswer
 
-		if (roundTimeMinutes === 2) {
+		if (roundTimeMinutes === 2 || roundTimeMinutes === 3) {
 			pointsFromGoodAnswer = 3000
 		} else if (roundTimeMinutes === 1) {
 			pointsFromGoodAnswer = 2000
@@ -22,8 +25,11 @@ export function GuessAnswerInput({
 			pointsFromGoodAnswer = 1000
 		}
 
+		setBonusPoints(pointsFromGoodAnswer)
+
 		if (playerGuess.toUpperCase() === chosenAnswer.answer) {
 			setIsAnswerCorrect(true)
+			setIsTimeRunning(false)
 			setRoundPoints(prevPoints => prevPoints + pointsFromGoodAnswer)
 		} else {
 			setIsAnswerCorrect(false)
@@ -49,7 +55,7 @@ export function GuessAnswerInput({
 					}}
 					type='text'
 				/>
-				<div className='flex flex-col lg:flex-row items-center justify-center w-full gap-2'>
+				<div className={`flex flex-col ${!isAnswerCorrect && 'lg:flex-row'}  items-center justify-center w-full gap-2`}>
 					{!isAnswerCorrect ? (
 						<>
 							<button
@@ -67,8 +73,14 @@ export function GuessAnswerInput({
 						</>
 					) : (
 						<>
-							<p>{}</p>
-							<NextRound setShowGuessAnswerInput={setShowGuessAnswerInput} resetGame={resetGame} />
+							<p className='py-2 text-center text-base sm:text-xl xl:text-2xl text-green-400'>
+								<span className='font-bold'>{bonusPoints} ZŁ</span> BONUSU ZA POPRAWNĄ ODPOWIEDŹ!
+							</p>
+							<NextRound
+								setShowGuessAnswerInput={setShowGuessAnswerInput}
+								resetRound={resetRound}
+								setIsAnswerCorrect={setIsAnswerCorrect}
+							/>
 						</>
 					)}
 				</div>

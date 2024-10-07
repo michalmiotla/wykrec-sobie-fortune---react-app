@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { Buttons } from './Buttons'
 import { Wheel } from './Wheel'
 import { GuessAnswerInput } from './GuessAnswerInput'
+import { useState } from 'react'
 
 export function WheelSide({
 	chosenAnswer,
@@ -12,11 +12,17 @@ export function WheelSide({
 	initialDeg,
 	setDisabledButtonsState,
 	disabledButtonsState,
-	resetGame,
-	setIsGameRestarted,
+	resetRound,
+	setIsRoundRestarted,
 	roundTimeMinutes,
+	setShowGuessAnswerInput,
+	showGuessAnswerInput,
+	setIsTimeRunning,
+	isTimeRunning,
+	setIsWheelSpinning,
+	isWheelSpinning,
 }) {
-	const [showGuessAnswerInput, setShowGuessAnswerInput] = useState(false)
+	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
 
 	return (
 		<div className='relative lg:static flex flex-col items-center lg:col-start-1 lg:col-end-2 lg:row-start-1 gap-4'>
@@ -28,22 +34,31 @@ export function WheelSide({
 				setRoundPoints={setRoundPoints}
 				setDisabledButtonsState={setDisabledButtonsState}
 				disabledButtonsState={disabledButtonsState}
-				setIsGameRestarted={setIsGameRestarted}
+				setIsRoundRestarted={setIsRoundRestarted}
+				setIsWheelSpinning={setIsWheelSpinning}
+				isWheelSpinning={isWheelSpinning}
 			/>
 			<Buttons
 				setDisabledButtonsState={setDisabledButtonsState}
 				disabledButtonsState={disabledButtonsState}
 				setShowGuessAnswerInput={setShowGuessAnswerInput}
 			/>
-			{showGuessAnswerInput && (
+
+			{((showGuessAnswerInput && isTimeRunning) ||
+				(showGuessAnswerInput && !isTimeRunning && isAnswerCorrect === true)) && (
 				<GuessAnswerInput
 					setShowGuessAnswerInput={setShowGuessAnswerInput}
 					chosenAnswer={chosenAnswer}
 					setRoundPoints={setRoundPoints}
-					resetGame={resetGame}
+					resetRound={resetRound}
 					roundTimeMinutes={roundTimeMinutes}
+					setIsTimeRunning={setIsTimeRunning}
+					setIsAnswerCorrect={setIsAnswerCorrect}
+					isAnswerCorrect={isAnswerCorrect}
 				/>
 			)}
+
+			{!isTimeRunning && (isAnswerCorrect === null || isAnswerCorrect === false) && setShowGuessAnswerInput(false)}
 		</div>
 	)
 }

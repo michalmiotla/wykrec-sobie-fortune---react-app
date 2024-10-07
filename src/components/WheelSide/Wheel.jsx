@@ -9,9 +9,10 @@ export function Wheel({
 	rotateWheel,
 	valueOfSpinnedWheel,
 	initialDeg,
-	setIsGameRestarted,
+	setIsRoundRestarted,
+	setIsWheelSpinning,
+	isWheelSpinning,
 }) {
-	const [isWheelSpinning, setIsWheelSpinning] = useState(false)
 	const [startSpinDegrees, setStartSpinDegrees] = useState(0)
 
 	function setDegrees() {
@@ -63,7 +64,7 @@ export function Wheel({
 				onClick={() => {
 					setIsWheelSpinning(true)
 					setDegrees()
-					setIsGameRestarted(false)
+					setIsRoundRestarted(false)
 					setDisabledButtonsState({ ...disabledButtonsState, guessAnswerButton: true })
 				}}
 				className={`absolute bg-transparent border-none font-bold text-base sm:text-xl xl:text-2xl text-white rounded-full aspect-square w-[80px] sm:w-[110px]  md:w-[140px]  lg:w-[110px] xl:w-[140px] ${

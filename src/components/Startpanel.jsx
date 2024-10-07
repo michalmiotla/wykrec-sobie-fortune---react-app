@@ -1,14 +1,19 @@
+import { useState } from 'react'
+import { Results } from './Results'
+
 export function StartPanel({ setIsGameStarted }) {
+	const [showResultsPanel, setShowResultsPanel] = useState(false)
+
 	return (
 		<div className='absolute h-full w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex flex-col items-center justify-center bg-transparent'>
-			<div className='w-full flex flex-col items-center justify-around bg-white lg:bg-[rgba(255,255,255,0.90)] p-8 border-y-2 border-light-beige  drop-shadow-xl'>
+			<div className='w-full flex flex-col items-center justify-around bg-white lg:bg-[rgba(255,255,255,0.90)] p-8 border-y-2 border-black drop-shadow-xl'>
 				<div className='flex flex-col items-center justify-center'>
 					<p className='font-bold text-base text-center sm:text-xl xl:text-2xl'>
 						WITAJ W GRZE <q>WYKRĘĆ SOBIE FORTUNĘ!</q>
 					</p>
 					<p className='text-center text-base sm:text-xl xl:text-2xl py-2'>ZASADY GRY:</p>
 					<div className='text-[10px] sm:text-sm lg:text-base'>
-						<ul className='list-disc py-4'>
+						<ul className='list-disc py-10'>
 							<li className=' py-1'>
 								Gra wzorowana jest na teleturnieju
 								<q>
@@ -56,8 +61,14 @@ export function StartPanel({ setIsGameStarted }) {
 						className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '>
 						ZACZNIJ GRĘ!
 					</button>
+					<button
+						onClick={() => setShowResultsPanel(true)}
+						className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '>
+						NAJLEPSZE WYNIKI
+					</button>
 				</div>
 			</div>
+			{showResultsPanel && <Results setShowResultsPanel={setShowResultsPanel} />}
 		</div>
 	)
 }
