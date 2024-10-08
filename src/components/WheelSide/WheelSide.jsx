@@ -21,6 +21,9 @@ export function WheelSide({
 	isTimeRunning,
 	setIsWheelSpinning,
 	isWheelSpinning,
+	round,
+	setShowEndGamePanel,
+	finishGame,
 }) {
 	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
 
@@ -55,10 +58,11 @@ export function WheelSide({
 					setIsTimeRunning={setIsTimeRunning}
 					setIsAnswerCorrect={setIsAnswerCorrect}
 					isAnswerCorrect={isAnswerCorrect}
+					round={round}
+					setShowEndGamePanel={setShowEndGamePanel}
+					finishGame={finishGame}
 				/>
 			)}
-
-			{!isTimeRunning && (isAnswerCorrect === null || isAnswerCorrect === false) && setShowGuessAnswerInput(false)}
 		</div>
 	)
 }

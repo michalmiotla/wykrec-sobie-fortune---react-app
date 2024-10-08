@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { TimeIsUp } from './BoardsSide/TimeIsUp'
 import { setValueOfSpinnedWheel } from '../utils/setValueOfSpinnedWheel'
 import { QuickInfo } from './QuickInfo'
+import { EndOfGamePanel } from './EndOfGamePanel'
 
 export function MainContainer() {
 	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
@@ -29,6 +30,7 @@ export function MainContainer() {
 	const [showInfo, setShowInfo] = useState(false)
 	const [showGuessAnswerInput, setShowGuessAnswerInput] = useState(false)
 	const [isWheelSpinning, setIsWheelSpinning] = useState(false)
+	const [showEndGamePanel, setShowEndGamePanel] = useState(false)
 
 	useEffect(() => {
 		let timeInterval
@@ -45,17 +47,17 @@ export function MainContainer() {
 						setIsTimeRunning(false)
 					}
 				}
-
-				if (isRoundRestarted) {
-					setIsTimeRunning(true)
-					setRoundTimeMinutes(3)
-					setRoundTimeSeconds(0)
-				}
-			}, 1000)
+			}, 100)
 		}
 
 		return () => clearInterval(timeInterval)
 	}, [isRoundRestarted, isTimeRunning, roundTimeMinutes, roundTimeSeconds])
+
+	useEffect(() => {
+		if (isRoundRestarted) {
+			setIsTimeRunning(true)
+		}
+	}, [isRoundRestarted])
 
 	let initialDeg = 0
 	let valueOfSpinnedWheel = setValueOfSpinnedWheel(initialDeg, rotateWheel)
@@ -63,8 +65,14 @@ export function MainContainer() {
 	function resetRound() {
 		setIsRoundRestarted(true)
 		setRound(prevRound => (prevRound < 3 ? prevRound + 1 : prevRound))
-		setTotalPoints(prevPoints => prevPoints + roundPoints)
+
+		if (!(!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0)) {
+			setTotalPoints(prevPoints => prevPoints + roundPoints)
+		}
+
 		setRoundPoints(0)
+		setRoundTimeMinutes(3)
+		setRoundTimeSeconds(0)
 		setChosenAnswer(findAnswer())
 		setChosenLetters([])
 		setDisabledButtonsState({
@@ -75,8 +83,15 @@ export function MainContainer() {
 			consonantsArea: true,
 			vowelsArea: true,
 		})
-		setIsTimeRunning(true)
 		setIsWheelSpinning(false)
+		setShowGuessAnswerInput(false)
+		setIsTimeRunning(true)
+	}
+
+	function finishGame() {
+		if (!(!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0)) {
+			setTotalPoints(prevPoints => prevPoints + roundPoints)
+		}
 	}
 
 	function handleConsonants(letter) {
@@ -219,15 +234,13 @@ export function MainContainer() {
 				isTimeRunning={isTimeRunning}
 				setIsWheelSpinning={setIsWheelSpinning}
 				isWheelSpinning={isWheelSpinning}
+				round={round}
+				setShowEndGamePanel={setShowEndGamePanel}
+				finishGame={finishGame}
 			/>
-			{!isTimeRunning && roundTimeSeconds === 0 && (
-				<TimeIsUp
-					setIsTimeRunning={setIsTimeRunning}
-					setRoundTimeMinutes={setRoundTimeMinutes}
-					resetRound={resetRound}
-				/>
-			)}
+			{!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0 && <TimeIsUp resetRound={resetRound} />}
 			{showInfo && <QuickInfo chosenLetters={chosenLetters} setShowInfo={setShowInfo} />}
+			{showEndGamePanel && <EndOfGamePanel totalPoints={totalPoints} />}
 		</div>
 	)
 }

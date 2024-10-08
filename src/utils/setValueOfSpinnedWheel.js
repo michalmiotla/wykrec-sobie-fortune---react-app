@@ -1,6 +1,6 @@
 export function setValueOfSpinnedWheel(initialDeg, rotateWheel) {
 	switch (true) {
-		case (initialDeg + rotateWheel) % 360 > 0 && (initialDeg + rotateWheel) % 360 <= 22.5:
+		case (initialDeg + rotateWheel) % 360 >= 0 && (initialDeg + rotateWheel) % 360 <= 22.5:
 			return 500
 		case (initialDeg + rotateWheel) % 360 > 22.5 && (initialDeg + rotateWheel) % 360 <= 45:
 			return 200
