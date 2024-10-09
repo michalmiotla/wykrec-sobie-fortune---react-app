@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NextRound } from '../NextRound'
-import { EndOfGameButton } from '../EndOfGameButton'
+import { FinishGameButton } from '../FinishGameButton'
 
 export function GuessAnswerInput({
 	setShowGuessAnswerInput,
@@ -85,48 +85,13 @@ export function GuessAnswerInput({
 								</p>
 							</div>
 
-							<NextRound
-								setShowGuessAnswerInput={setShowGuessAnswerInput}
-								resetRound={resetRound}
-								setIsAnswerCorrect={setIsAnswerCorrect}
-							/>
+							<NextRound resetRound={resetRound} setIsAnswerCorrect={setIsAnswerCorrect} />
 						</>
 					)}
 
-					{(isAnswerCorrect === true || isAnswerCorrect === false) && round === 3 && (
-						<EndOfGameButton finishGame={finishGame} setShowEndGamePanel={setShowEndGamePanel} />
+					{isAnswerCorrect === true && round === 3 && (
+						<FinishGameButton setShowEndGamePanel={setShowEndGamePanel} finishGame={finishGame} />
 					)}
-
-					{/* {!isAnswerCorrect ? (
-						<>
-							<button
-								className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '
-								onClick={() => {
-									checkPlayerGuess()
-								}}>
-								SPRAWDŹ
-							</button>
-							<button
-								className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '
-								onClick={() => setShowGuessAnswerInput(false)}>
-								WRÓĆ DO GRY
-							</button>
-						</>
-					) : (
-						<>
-							<div className='py-2 px-4 bg-white rounded-full border-2 border-green-400'>
-								<p className=' text-center text-base sm:text-xl xl:text-2xl text-green-400'>
-									<span className='font-bold'>{bonusPoints} ZŁ</span> BONUSU ZA POPRAWNĄ ODPOWIEDŹ!
-								</p>
-							</div>
-
-							<NextRound
-								setShowGuessAnswerInput={setShowGuessAnswerInput}
-								resetRound={resetRound}
-								setIsAnswerCorrect={setIsAnswerCorrect}
-							/>
-						</>
-					)} */}
 				</div>
 			</div>
 		</div>

@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import { Results } from './Results'
 
-export function StartPanel({ setIsGameStarted }) {
-	const [showResultsPanel, setShowResultsPanel] = useState(false)
-
+export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsPanel }) {
 	return (
 		<div className='absolute h-full w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex flex-col items-center justify-center bg-transparent'>
 			<div className='w-full flex flex-col items-center justify-around bg-white lg:bg-[rgba(255,255,255,0.90)] p-8 border-y-2 border-black drop-shadow-xl'>
