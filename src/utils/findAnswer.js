@@ -8,7 +8,7 @@ export function findAnswer() {
 	const fullAnswer = answersArray[indexOfCategory].answers[indexOfAnswer].split(' ')
 	const splittedAnswer = fullAnswer.map(word => word.split(''))
 	const answerObject = { category, answer, fullAnswer, splittedAnswer }
-	console.log(answerObject)
+
 	return answerObject
 }
 

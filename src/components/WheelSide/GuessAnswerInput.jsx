@@ -49,14 +49,17 @@ export function GuessAnswerInput({
 				</div>
 
 				<input
+					disabled={isAnswerCorrect}
 					className={`text-center w-[75%] sm:w-[60%] lg:w-[500px] py-2 px-4 p- rounded-full border-2 border-black  ${
 						isAnswerCorrect === true && 'border-green-400'
 					} 
                     ${isAnswerCorrect === false && 'border-red-400'}
-                    drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 `}
+					
+                    drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 disabled:bg-white disabled:cursor-default `}
 					onChange={e => {
 						setPlayerGuess(e.target.value)
 					}}
+					onKeyDown={e => e.key === 'Enter' && checkPlayerGuess()}
 					type='text'
 				/>
 				<div className={`flex flex-col ${!isAnswerCorrect && 'lg:flex-row'}  items-center justify-center w-full gap-2`}>

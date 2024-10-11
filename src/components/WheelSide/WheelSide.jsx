@@ -1,7 +1,6 @@
 import { Buttons } from './Buttons'
 import { Wheel } from './Wheel'
 import { GuessAnswerInput } from './GuessAnswerInput'
-import { useState } from 'react'
 
 export function WheelSide({
 	chosenAnswer,
@@ -24,9 +23,9 @@ export function WheelSide({
 	round,
 	setShowEndGamePanel,
 	finishGame,
+	setIsAnswerCorrect,
+	isAnswerCorrect,
 }) {
-	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
-
 	return (
 		<div className='relative lg:static flex flex-col items-center lg:col-start-1 lg:col-end-2 lg:row-start-1 gap-4'>
 			<Wheel

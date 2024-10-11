@@ -1,6 +1,6 @@
 import { BoardsSide } from './BoardsSide/BoardsSide'
 import { WheelSide } from './WheelSide/WheelSide'
-import { answerToGuess, findAnswer } from '../utils/findAnswer'
+import { findAnswer } from '../utils/findAnswer'
 import { useEffect, useState } from 'react'
 import { TimeIsUp } from './BoardsSide/TimeIsUp'
 import { setValueOfSpinnedWheel } from '../utils/setValueOfSpinnedWheel'
@@ -8,7 +8,7 @@ import { QuickInfo } from './QuickInfo'
 import { EndOfGamePanel } from './EndOfGamePanel'
 
 export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
-	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
+	const [chosenAnswer, setChosenAnswer] = useState(findAnswer())
 	const [roundPoints, setRoundPoints] = useState(0)
 	const [totalPoints, setTotalPoints] = useState(0)
 	const [round, setRound] = useState(1)
@@ -31,6 +31,9 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 	const [showGuessAnswerInput, setShowGuessAnswerInput] = useState(false)
 	const [isWheelSpinning, setIsWheelSpinning] = useState(false)
 	const [showEndGamePanel, setShowEndGamePanel] = useState(false)
+	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
+
+	console.log(chosenAnswer)
 
 	useEffect(() => {
 		let timeInterval
@@ -47,7 +50,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 						setIsTimeRunning(false)
 					}
 				}
-			}, 100)
+			}, 1000)
 		}
 
 		return () => clearInterval(timeInterval)
@@ -86,6 +89,8 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 		setIsWheelSpinning(false)
 		setShowGuessAnswerInput(false)
 		setIsTimeRunning(true)
+		setShowInfo(false)
+		setIsAnswerCorrect(null)
 	}
 
 	function finishGame() {
@@ -267,9 +272,19 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 						round={round}
 						setShowEndGamePanel={setShowEndGamePanel}
 						finishGame={finishGame}
+						setIsAnswerCorrect={setIsAnswerCorrect}
+						isAnswerCorrect={isAnswerCorrect}
 					/>
-					{!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0 && <TimeIsUp resetRound={resetRound} />}
-					{showInfo && <QuickInfo chosenLetters={chosenLetters} setShowInfo={setShowInfo} />}
+					{!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0 && (
+						<TimeIsUp
+							round={round}
+							resetRound={resetRound}
+							setShowEndGamePanel={setShowEndGamePanel}
+							finishGame={finishGame}
+							chosenAnswer={chosenAnswer}
+						/>
+					)}
+					{showInfo && isTimeRunning && <QuickInfo chosenLetters={chosenLetters} setShowInfo={setShowInfo} />}
 				</>
 			) : (
 				<EndOfGamePanel totalPoints={totalPoints} setShowResultsPanel={setShowResultsPanel} resetGame={resetGame} />
