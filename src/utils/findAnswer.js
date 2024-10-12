@@ -7,9 +7,9 @@ export function findAnswer() {
 	const answer = answersArray[indexOfCategory].answers[indexOfAnswer]
 	const fullAnswer = answersArray[indexOfCategory].answers[indexOfAnswer].split(' ')
 	const splittedAnswer = fullAnswer.map(word => word.split(''))
+	answersArray[indexOfCategory].answers.splice(indexOfAnswer, 1)
+	console.log(answersArray)
 	const answerObject = { category, answer, fullAnswer, splittedAnswer }
 
 	return answerObject
 }
-
-export const answerToGuess = findAnswer()

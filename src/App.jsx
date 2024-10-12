@@ -8,8 +8,6 @@ function App() {
 	const [isGameStarted, setIsGameStarted] = useState(false)
 	const [showResultsPanel, setShowResultsPanel] = useState(false)
 
-	console.log(showResultsPanel)
-
 	return (
 		<div className='relative flex justify-center h-full w-full bg-black font-poppins'>
 			<div className='absolute w-full min-w-[375px] max-w-[1440px] min-h-screen p-2 bg-painted bg-cover bg-center'>

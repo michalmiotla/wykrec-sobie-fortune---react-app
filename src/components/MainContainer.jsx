@@ -7,8 +7,11 @@ import { setValueOfSpinnedWheel } from '../utils/setValueOfSpinnedWheel'
 import { QuickInfo } from './QuickInfo'
 import { EndOfGamePanel } from './EndOfGamePanel'
 
+let answerToGuess = findAnswer()
+
+
 export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
-	const [chosenAnswer, setChosenAnswer] = useState(findAnswer())
+	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
 	const [roundPoints, setRoundPoints] = useState(0)
 	const [totalPoints, setTotalPoints] = useState(0)
 	const [round, setRound] = useState(1)
@@ -33,8 +36,6 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 	const [showEndGamePanel, setShowEndGamePanel] = useState(false)
 	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
 
-	console.log(chosenAnswer)
-
 	useEffect(() => {
 		let timeInterval
 
@@ -50,7 +51,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 						setIsTimeRunning(false)
 					}
 				}
-			}, 1000)
+			}, 200)
 		}
 
 		return () => clearInterval(timeInterval)
@@ -76,7 +77,8 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 		setRoundPoints(0)
 		setRoundTimeMinutes(3)
 		setRoundTimeSeconds(0)
-		setChosenAnswer(findAnswer())
+		answerToGuess = findAnswer()
+		setChosenAnswer(answerToGuess)
 		setChosenLetters([])
 		setDisabledButtonsState({
 			spinOnWheel: false,
@@ -103,7 +105,8 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 
 	function resetGame() {
 		setIsGameStarted(false)
-		setChosenAnswer(findAnswer())
+		answerToGuess = findAnswer()
+		setChosenAnswer(answerToGuess)
 		setRoundPoints(0)
 		setTotalPoints(0)
 		setRound(1)
