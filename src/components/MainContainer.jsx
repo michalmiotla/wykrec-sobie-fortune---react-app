@@ -9,7 +9,6 @@ import { EndOfGamePanel } from './EndOfGamePanel'
 
 let answerToGuess = findAnswer()
 
-
 export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
 	const [roundPoints, setRoundPoints] = useState(0)
@@ -51,7 +50,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted }) {
 						setIsTimeRunning(false)
 					}
 				}
-			}, 200)
+			}, 10)
 		}
 
 		return () => clearInterval(timeInterval)

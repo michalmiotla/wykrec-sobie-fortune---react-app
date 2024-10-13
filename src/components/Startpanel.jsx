@@ -2,8 +2,8 @@ import { Results } from './Results'
 
 export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsPanel }) {
 	return (
-		<div className='absolute h-full w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex flex-col items-center justify-center bg-transparent'>
-			<div className='w-full flex flex-col items-center justify-around bg-white lg:bg-[rgba(255,255,255,0.90)] p-8 border-y-2 border-black drop-shadow-xl'>
+		<>
+			<div className='w-full flex flex-col items-center justify-around  p-8  drop-shadow-xl'>
 				<div className='flex flex-col items-center justify-center'>
 					<p className='font-bold text-base text-center sm:text-xl xl:text-2xl'>
 						WITAJ W GRZE <q>WYKRĘĆ SOBIE FORTUNĘ!</q>
@@ -66,6 +66,6 @@ export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsP
 				</div>
 			</div>
 			{showResultsPanel && <Results setShowResultsPanel={setShowResultsPanel} />}
-		</div>
+		</>
 	)
 }
