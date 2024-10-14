@@ -3,14 +3,14 @@ import { Results } from './Results'
 export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsPanel }) {
 	return (
 		<>
-			<div className='w-full flex flex-col items-center justify-around  p-8  drop-shadow-xl'>
-				<div className='flex flex-col items-center justify-center'>
-					<p className='font-bold text-base text-center sm:text-xl xl:text-2xl'>
+			<div className='relative w-full my-auto flex flex-col items-center justify-center drop-shadow-xl px-2'>
+				<div className='flex flex-col items-center justify-center w-full'>
+					<p className='font-bold text-base text-center sm:text-xl xl:text-2xl py-6'>
 						WITAJ W GRZE <q>WYKRĘĆ SOBIE FORTUNĘ!</q>
 					</p>
-					<p className='text-center text-base sm:text-xl xl:text-2xl py-2'>ZASADY GRY:</p>
+					<p className='text-center text-base sm:text-xl xl:text-2xl py-6'>ZASADY GRY:</p>
 					<div className='text-[10px] sm:text-sm lg:text-base'>
-						<ul className='list-disc py-10'>
+						<ul className='list-disc py-6'>
 							<li className=' py-1'>
 								Gra wzorowana jest na teleturnieju
 								<q>
@@ -52,7 +52,7 @@ export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsP
 					</div>
 				</div>
 
-				<div className='flex flex-col lg:flex-row items-center justify-center w-full gap-2'>
+				<div className='flex flex-col lg:flex-row items-center justify-center w-full gap-2 py-6'>
 					<button
 						onClick={() => setIsGameStarted(true)}
 						className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '>

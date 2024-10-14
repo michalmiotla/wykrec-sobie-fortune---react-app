@@ -1,6 +1,6 @@
-export function Results({ setShowResultsPanel }) {
+export function Results({ setShowResultsPanel, setIsGameStarted }) {
 	return (
-		<div className='absolute z-150 h-full w-full md:w-2/3 lg:w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-12  flex flex-col items-center justify-center '>
+		<div className='relative z-150 h-full w-full md:w-2/3 lg:w-full py-6 gap-12 my-auto flex flex-col items-center justify-center '>
 			<p className='text-center text-base font-bold sm:text-xl xl:text-2xl py-2'>TWOJE NAJLEPSZE WYNIKI:</p>
 			<ol className='text-center text-base sm:text-xl xl:text-2xl'>
 				<li>1.</li>
@@ -16,7 +16,9 @@ export function Results({ setShowResultsPanel }) {
 			</ol>
 			<button
 				className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '
-				onClick={() => setShowResultsPanel(false)}>
+				onClick={() => {
+					setShowResultsPanel(false), setIsGameStarted(false)
+				}}>
 				POWRÓT
 			</button>
 		</div>

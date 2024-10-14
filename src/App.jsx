@@ -9,10 +9,11 @@ function App() {
 	const [showResultsPanel, setShowResultsPanel] = useState(false)
 
 	return (
-		<div className='relative flex justify-center h-full w-full bg-black font-poppins'>
-			<div className='absolute w-full min-w-[375px] max-w-[1440px] min-h-screen p-2 bg-painted bg-cover bg-center'>
-				<div className='container 2xl:max-w-[1280px] h-full flex flex-col mx-auto overflow-hidden'>
+		<div className='relative flex justify-center h-full w-full font-poppins'>
+			<div className='absolute w-full min-w-[375px] min-h-screen bg-painted bg-cover bg-center'>
+				<div className='relative container 2xl:max-w-[1280px] h-full flex flex-col items-center min-h-screen mx-auto'>
 					<Logo />
+
 					{!isGameStarted && !showResultsPanel && (
 						<StartPanel
 							setIsGameStarted={setIsGameStarted}
@@ -23,7 +24,9 @@ function App() {
 					{isGameStarted && !showResultsPanel && (
 						<MainContainer setShowResultsPanel={setShowResultsPanel} setIsGameStarted={setIsGameStarted} />
 					)}
-					{showResultsPanel && <Results setShowResultsPanel={setShowResultsPanel} />}
+					{showResultsPanel && (
+						<Results setShowResultsPanel={setShowResultsPanel} setIsGameStarted={setIsGameStarted} />
+					)}
 				</div>
 			</div>
 		</div>

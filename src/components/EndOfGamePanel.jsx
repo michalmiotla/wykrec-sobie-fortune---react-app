@@ -1,6 +1,6 @@
 export function EndOfGamePanel({ totalPoints, setShowResultsPanel, resetGame }) {
 	return (
-		<div className='absolute z-100 h-full w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-12 flex flex-col items-center justify-center '>
+		<div className='relative z-100 h-full w-full gap-12 flex flex-col items-center justify-center my-auto '>
 			<div className='flex flex-col justify-center items-center'>
 				<p className='text-center text-base font-bold sm:text-xl xl:text-2xl py-2'>TWÓJ WYNIK TO:</p>
 				<p className="className='text-center text-base sm:text-xl xl:text-2xl'">{totalPoints} ZŁ</p>
