@@ -1,6 +1,4 @@
-import { Results } from './Results'
-
-export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsPanel }) {
+export function StartPanel({ setIsGameStarted, setShowResultsPanel }) {
 	return (
 		<>
 			<div className='relative w-full my-auto flex flex-col items-center justify-center drop-shadow-xl px-2'>
@@ -65,7 +63,6 @@ export function StartPanel({ setIsGameStarted, setShowResultsPanel, showResultsP
 					</button>
 				</div>
 			</div>
-			{showResultsPanel && <Results setShowResultsPanel={setShowResultsPanel} />}
 		</>
 	)
 }

@@ -1,12 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Logo } from './components/Logo'
 import { StartPanel } from './components/Startpanel'
 import { MainContainer } from './components/MainContainer'
-import { Results } from './components/Results'
+import { ResultsPanel } from './components/ResultsPanel'
 
 function App() {
 	const [isGameStarted, setIsGameStarted] = useState(false)
 	const [showResultsPanel, setShowResultsPanel] = useState(false)
+
+	useEffect(() => {
+		if (localStorage.getItem('results') === null) {
+			localStorage.setItem('results', '[]')
+		}
+	})
 
 	return (
 		<div className='relative flex justify-center h-full w-full font-poppins'>
@@ -22,10 +28,14 @@ function App() {
 						/>
 					)}
 					{isGameStarted && !showResultsPanel && (
-						<MainContainer setShowResultsPanel={setShowResultsPanel} setIsGameStarted={setIsGameStarted} />
+						<MainContainer
+							setShowResultsPanel={setShowResultsPanel}
+							showResultsPanel={showResultsPanel}
+							setIsGameStarted={setIsGameStarted}
+						/>
 					)}
 					{showResultsPanel && (
-						<Results setShowResultsPanel={setShowResultsPanel} setIsGameStarted={setIsGameStarted} />
+						<ResultsPanel setShowResultsPanel={setShowResultsPanel} setIsGameStarted={setIsGameStarted} />
 					)}
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-export function Results({ setShowResultsPanel, setIsGameStarted }) {
+export function ResultsPanel({ setShowResultsPanel, setIsGameStarted }) {
 	return (
 		<div className='relative z-150 h-full w-full md:w-2/3 lg:w-full py-6 gap-12 my-auto flex flex-col items-center justify-center '>
 			<p className='text-center text-base font-bold sm:text-xl xl:text-2xl py-2'>TWOJE NAJLEPSZE WYNIKI:</p>
@@ -19,7 +19,7 @@ export function Results({ setShowResultsPanel, setIsGameStarted }) {
 				onClick={() => {
 					setShowResultsPanel(false), setIsGameStarted(false)
 				}}>
-				POWRÓT
+				POWRÓT DO MENU
 			</button>
 		</div>
 	)
