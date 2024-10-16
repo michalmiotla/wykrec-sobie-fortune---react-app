@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 
 export function EndOfGamePanel({ totalPoints, setShowResultsPanel, resetGame }) {
+	const newResult = totalPoints
+	const results = JSON.parse(localStorage.getItem('results'))
+	const updatedArray = JSON.stringify([...results, newResult])
+
 	useEffect(() => {
-		let newResult = JSON.stringify(totalPoints)
-		let results = JSON.parse(localStorage.getItem('results'))
-		console.log(results)
-		console.log(newResult)
-	}, [totalPoints])
+		localStorage.setItem('results', updatedArray)
+	})
 
 	return (
 		<div className='relative z-100 h-full w-full gap-12 flex flex-col items-center justify-center my-auto '>

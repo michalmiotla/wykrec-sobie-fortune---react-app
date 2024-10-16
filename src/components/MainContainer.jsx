@@ -35,8 +35,6 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 	const [showEndGamePanel, setShowEndGamePanel] = useState(false)
 	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
 
-	
-
 	useEffect(() => {
 		let timeInterval
 
