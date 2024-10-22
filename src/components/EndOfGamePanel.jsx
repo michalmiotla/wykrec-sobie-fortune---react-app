@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
-export function EndOfGamePanel({ totalPoints, setShowResultsPanel, resetGame }) {
-	const newResult = totalPoints
+export function EndOfGamePanel({ gamePoints, setShowResultsPanel, resetGame }) {
+	const newResult = gamePoints.totalPoints
 	const results = JSON.parse(localStorage.getItem('results'))
 	const updatedArray = JSON.stringify([...results, newResult])
 
@@ -14,7 +14,7 @@ export function EndOfGamePanel({ totalPoints, setShowResultsPanel, resetGame }) 
 			<>
 				<div className='flex flex-col justify-center items-center'>
 					<p className='text-center text-base font-bold sm:text-xl xl:text-2xl py-2'>TWÓJ WYNIK TO:</p>
-					<p className="className='text-center text-base sm:text-xl xl:text-2xl'">{totalPoints} ZŁ</p>
+					<p className="className='text-center text-base sm:text-xl xl:text-2xl'">{gamePoints.totalPoints} ZŁ</p>
 				</div>
 
 				<div className='flex flex-col lg:flex-row justify-center items-center w-full md:w-2/3 lg:w-full gap-6'>

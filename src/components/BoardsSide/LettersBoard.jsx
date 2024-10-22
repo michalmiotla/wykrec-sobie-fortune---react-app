@@ -3,14 +3,7 @@ import { vowelsArray } from '../../utils/vowelsArray'
 import { Consonant } from '../BoardsSide/Consonant'
 import { Vowel } from './Vowel'
 
-export function LettersBoard({
-	disabledButtonsState,
-	chosenLetters,
-	roundTimeSeconds,
-	roundTimeMinutes,
-	handleConsonants,
-	handleVowels,
-}) {
+export function LettersBoard({ disabledButtonsState, chosenLetters, roundTime, handleConsonants, handleVowels }) {
 	const mappedConsonants = consonantsArray.map((consonant, index) => (
 		<Consonant
 			letter={consonant}
@@ -47,7 +40,7 @@ export function LettersBoard({
 				<div className='flex justify-between w-[80%] h-[15%]'>
 					<p className='text-base sm:text-xl xl:text-2xl '>DO KONCA RUNDY:</p>
 					<p className='font-bold text-base sm:text-xl xl:text-2xl '>
-						0{roundTimeMinutes}:{roundTimeSeconds > 9 ? roundTimeSeconds : `0${roundTimeSeconds}`}
+						0{roundTime.minutes}:{roundTime.seconds > 9 ? roundTime.seconds : `0${roundTime.seconds}`}
 					</p>
 				</div>
 			</div>

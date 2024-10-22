@@ -4,7 +4,9 @@ import { GuessAnswerInput } from './GuessAnswerInput'
 
 export function WheelSide({
 	chosenAnswer,
-	setRoundPoints,
+	// setRoundPoints,
+	setGamePoints,
+	gamePoints,
 	setRotateWheel,
 	rotateWheel,
 	valueOfSpinnedWheel,
@@ -13,7 +15,7 @@ export function WheelSide({
 	disabledButtonsState,
 	resetRound,
 	setIsRoundRestarted,
-	roundTimeMinutes,
+	roundTime,
 	setShowGuessAnswerInput,
 	showGuessAnswerInput,
 	setIsTimeRunning,
@@ -33,7 +35,8 @@ export function WheelSide({
 				valueOfSpinnedWheel={valueOfSpinnedWheel}
 				setRotateWheel={setRotateWheel}
 				rotateWheel={rotateWheel}
-				setRoundPoints={setRoundPoints}
+				setGamePoints={setGamePoints}
+				gamePoints={gamePoints}
 				setDisabledButtonsState={setDisabledButtonsState}
 				disabledButtonsState={disabledButtonsState}
 				setIsRoundRestarted={setIsRoundRestarted}
@@ -51,9 +54,10 @@ export function WheelSide({
 				<GuessAnswerInput
 					setShowGuessAnswerInput={setShowGuessAnswerInput}
 					chosenAnswer={chosenAnswer}
-					setRoundPoints={setRoundPoints}
+					setGamePoints={setGamePoints}
+					gamePoints={gamePoints}
 					resetRound={resetRound}
-					roundTimeMinutes={roundTimeMinutes}
+					roundTime={roundTime}
 					setIsTimeRunning={setIsTimeRunning}
 					setIsAnswerCorrect={setIsAnswerCorrect}
 					isAnswerCorrect={isAnswerCorrect}

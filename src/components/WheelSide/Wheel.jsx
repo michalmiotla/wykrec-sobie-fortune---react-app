@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { easeInOut, motion } from 'framer-motion'
 
 export function Wheel({
-	setRoundPoints,
+	setGamePoints,
+	gamePoints,
 	disabledButtonsState,
 	setDisabledButtonsState,
 	setRotateWheel,
@@ -40,13 +41,14 @@ export function Wheel({
 	useEffect(() => {
 		if (valueOfSpinnedWheel === 0) {
 			let timer1 = setTimeout(() => {
-				setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
+				setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints + valueOfSpinnedWheel })
+				// setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
 			}, 5000)
 			return () => {
 				clearTimeout(timer1)
 			}
 		}
-	}, [valueOfSpinnedWheel, setRoundPoints])
+	}, [valueOfSpinnedWheel, setGamePoints])
 
 	return (
 		<div className='w-full relative flex justify-center items-center'>

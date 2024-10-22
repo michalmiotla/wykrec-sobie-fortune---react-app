@@ -4,25 +4,24 @@ import { LettersBoard } from './LettersBoard'
 
 export function BoardsSide({
 	chosenAnswer,
-	roundPoints,
+	// roundPoints,
 	round,
-	totalPoints,
+	// totalPoints,
+	gamePoints,
 	disabledButtonsState,
 	chosenLetters,
-	roundTimeSeconds,
-	roundTimeMinutes,
+	roundTime,
 	handleConsonants,
 	handleVowels,
 }) {
 	return (
 		<div className='flex flex-col items-center lg:col-start-2 lg:col-end-3 gap-4 mb-8 lg:mb-0'>
-			<Results roundPoints={roundPoints} totalPoints={totalPoints} />
+			<Results gamePoints={gamePoints} />
 			<AnswerBoard round={round} chosenLetters={chosenLetters} chosenAnswer={chosenAnswer} />
 			<LettersBoard
 				chosenLetters={chosenLetters}
 				disabledButtonsState={disabledButtonsState}
-				roundTimeSeconds={roundTimeSeconds}
-				roundTimeMinutes={roundTimeMinutes}
+				roundTime={roundTime}
 				handleConsonants={handleConsonants}
 				handleVowels={handleVowels}
 			/>

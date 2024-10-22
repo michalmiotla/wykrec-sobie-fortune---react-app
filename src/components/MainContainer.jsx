@@ -11,14 +11,14 @@ let answerToGuess = findAnswer()
 
 export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResultsPanel }) {
 	const [chosenAnswer, setChosenAnswer] = useState(answerToGuess)
-	const [roundPoints, setRoundPoints] = useState(0)
-	const [totalPoints, setTotalPoints] = useState(0)
+	const [gamePoints, setGamePoints] = useState({
+		roundPoints: 0,
+		totalPoints: 0,
+	})
 	const [round, setRound] = useState(1)
 	const [rotateWheel, setRotateWheel] = useState(0)
 	const [chosenLetters, setChosenLetters] = useState([])
 	const [isRoundRestarted, setIsRoundRestarted] = useState(false)
-	const [roundTimeMinutes, setRoundTimeMinutes] = useState(3)
-	const [roundTimeSeconds, setRoundTimeSeconds] = useState(0)
 	const [isTimeRunning, setIsTimeRunning] = useState(true)
 	const [disabledButtonsState, setDisabledButtonsState] = useState({
 		spinOnWheel: false,
@@ -34,27 +34,30 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 	const [isWheelSpinning, setIsWheelSpinning] = useState(false)
 	const [showEndGamePanel, setShowEndGamePanel] = useState(false)
 	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null)
+	const [roundTime, setRoundTime] = useState({
+		minutes: 3,
+		seconds: 0,
+	})
 
 	useEffect(() => {
 		let timeInterval
 
 		if (isTimeRunning) {
 			timeInterval = setInterval(() => {
-				if (roundTimeSeconds !== 0) {
-					setRoundTimeSeconds(prevTime => prevTime - 1)
-				} else if (roundTimeSeconds === 0) {
-					if (roundTimeMinutes !== 0) {
-						setRoundTimeSeconds(prevTime => prevTime + 59)
-						setRoundTimeMinutes(prevTime => prevTime - 1)
+				if (roundTime.seconds !== 0) {
+					setRoundTime({ ...roundTime, seconds: roundTime.seconds - 1 })
+				} else if (roundTime.seconds === 0) {
+					if (roundTime.minutes !== 0) {
+						setRoundTime({ minutes: roundTime.minutes - 1, seconds: roundTime.seconds + 59 })
 					} else {
 						setIsTimeRunning(false)
 					}
 				}
-			}, 10)
+			}, 1000)
 		}
 
 		return () => clearInterval(timeInterval)
-	}, [isRoundRestarted, isTimeRunning, roundTimeMinutes, roundTimeSeconds])
+	}, [isRoundRestarted, isTimeRunning, roundTime])
 
 	useEffect(() => {
 		if (isRoundRestarted) {
@@ -65,17 +68,13 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 	let initialDeg = 0
 	let valueOfSpinnedWheel = setValueOfSpinnedWheel(initialDeg, rotateWheel)
 
-	function resetRound() {
-		setIsRoundRestarted(true)
-		setRound(prevRound => (prevRound < 3 ? prevRound + 1 : prevRound))
+	function basicReset() {
+		setGamePoints({ ...gamePoints, roundPoints: 0 })
+		setRoundTime({
+			minutes: 3,
+			seconds: 0,
+		})
 
-		if (!(!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0)) {
-			setTotalPoints(prevPoints => prevPoints + roundPoints)
-		}
-
-		setRoundPoints(0)
-		setRoundTimeMinutes(3)
-		setRoundTimeSeconds(0)
 		answerToGuess = findAnswer()
 		setChosenAnswer(answerToGuess)
 		setChosenLetters([])
@@ -91,42 +90,38 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 		setShowGuessAnswerInput(false)
 		setIsTimeRunning(true)
 		setShowInfo(false)
+	}
+
+	function resetRound() {
+		basicReset()
+		setIsRoundRestarted(true)
+		setRound(prevRound => (prevRound < 3 ? prevRound + 1 : prevRound))
+		if (!(!isTimeRunning && roundTime.minutes === 0 && roundTime.seconds === 0)) {
+			setGamePoints({ roundPoints: 0, totalPoints: gamePoints.totalPoints + gamePoints.roundPoints })
+			
+		}
 		setIsAnswerCorrect(null)
 	}
 
+	function resetGame() {
+		basicReset()
+		setIsGameStarted(false)
+		setGamePoints({
+			roundPoints: 0,
+			totalPoints: 0,
+		})
+		setRound(1)
+		setRotateWheel(0)
+		setIsRoundRestarted(false)
+		setShowEndGamePanel(false)
+	}
+
 	function finishGame() {
-		if (!(!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0)) {
-			setTotalPoints(prevPoints => prevPoints + roundPoints)
+		if (!(!isTimeRunning && roundTime.minutes === 0 && roundTime.seconds === 0)) {
+			setGamePoints({ roundPoints: 0, totalPoints: gamePoints.totalPoints + gamePoints.roundPoints })
 			setShowGuessAnswerInput(false)
 			setIsTimeRunning(false)
 		}
-	}
-
-	function resetGame() {
-		setIsGameStarted(false)
-		answerToGuess = findAnswer()
-		setChosenAnswer(answerToGuess)
-		setRoundPoints(0)
-		setTotalPoints(0)
-		setRound(1)
-		setRotateWheel(0)
-		setChosenLetters([])
-		setIsRoundRestarted(false)
-		setRoundTimeMinutes(3)
-		setRoundTimeSeconds(0)
-		setIsTimeRunning(true)
-		setDisabledButtonsState({
-			spinOnWheel: false,
-			spinButton: true,
-			buyVowelButton: true,
-			guessAnswerButton: false,
-			consonantsArea: true,
-			vowelsArea: true,
-		})
-		setShowInfo(false)
-		setShowGuessAnswerInput(false)
-		setIsWheelSpinning(false)
-		setShowEndGamePanel(false)
 	}
 
 	function handleConsonants(letter) {
@@ -138,7 +133,8 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 
 			answerSplitted.forEach(el => {
 				if (el === letter) {
-					setRoundPoints(prevPoints => prevPoints + valueOfSpinnedWheel)
+					setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints + valueOfSpinnedWheel })
+					// setRoundPoints(prevPoints => prevPoints + valueOfSpinnedWheel)
 				}
 			})
 
@@ -155,7 +151,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 
 	function handleVowels(letter) {
 		function chooseVowelsToReveal(letter) {
-			setRoundPoints(prevpoints => prevpoints - 400)
+			setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints - 400 })
 			setChosenLetters(prev => [...prev, letter])
 
 			setDisabledButtonsState({
@@ -214,7 +210,8 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 			setDisabledButtonsState({
 				...disabledButtonsState,
 				spinButton: true,
-				buyVowelButton: roundPoints >= 400 && !(remainingVowels.length >= vowelsInAnswer.length) ? false : true,
+				buyVowelButton:
+					gamePoints.roundPoints >= 400 && !(remainingVowels.length >= vowelsInAnswer.length) ? false : true,
 			})
 		} else if (remainingVowels.length >= vowelsInAnswer.length) {
 			setDisabledButtonsState({
@@ -226,30 +223,28 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 			setDisabledButtonsState({
 				...disabledButtonsState,
 				spinButton: true,
-				buyVowelButton: roundPoints >= 400 ? false : true,
+				buyVowelButton: gamePoints.roundPoints >= 400 ? false : true,
 			})
 		} else {
 			setDisabledButtonsState({
 				...disabledButtonsState,
 				spinButton: false,
-				buyVowelButton: roundPoints >= 400 ? false : true,
+				buyVowelButton: gamePoints.roundPoints >= 400 ? false : true,
 			})
 		}
-	}, [chosenLetters, roundPoints])
+	}, [chosenLetters, gamePoints.roundPoints])
 
 	return (
 		<>
 			{!showEndGamePanel ? (
 				<div className='grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:gap-8 xl:gap-16 2xl:gap-24 lg:grid-rows-1 my-8 lg:my-20 3xl:my-32'>
 					<BoardsSide
-						roundPoints={roundPoints}
 						chosenAnswer={chosenAnswer}
 						round={round}
-						totalPoints={totalPoints}
+						gamePoints={gamePoints}
 						disabledButtonsState={disabledButtonsState}
 						chosenLetters={chosenLetters}
-						roundTimeMinutes={roundTimeMinutes}
-						roundTimeSeconds={roundTimeSeconds}
+						roundTime={roundTime}
 						handleConsonants={handleConsonants}
 						handleVowels={handleVowels}
 					/>
@@ -258,13 +253,14 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 						valueOfSpinnedWheel={valueOfSpinnedWheel}
 						setRotateWheel={setRotateWheel}
 						rotateWheel={rotateWheel}
-						setRoundPoints={setRoundPoints}
+						setGamePoints={setGamePoints}
+						gamePoints={gamePoints}
 						chosenAnswer={chosenAnswer}
 						setDisabledButtonsState={setDisabledButtonsState}
 						disabledButtonsState={disabledButtonsState}
 						resetRound={resetRound}
 						setIsRoundRestarted={setIsRoundRestarted}
-						roundTimeMinutes={roundTimeMinutes}
+						roundTime={roundTime}
 						setShowGuessAnswerInput={setShowGuessAnswerInput}
 						showGuessAnswerInput={showGuessAnswerInput}
 						setIsTimeRunning={setIsTimeRunning}
@@ -277,7 +273,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 						setIsAnswerCorrect={setIsAnswerCorrect}
 						isAnswerCorrect={isAnswerCorrect}
 					/>
-					{!isTimeRunning && roundTimeMinutes === 0 && roundTimeSeconds === 0 && (
+					{!isTimeRunning && roundTime.minutes === 0 && roundTime.seconds === 0 && (
 						<TimeIsUp
 							round={round}
 							resetRound={resetRound}
@@ -290,7 +286,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 				</div>
 			) : (
 				<EndOfGamePanel
-					totalPoints={totalPoints}
+					gamePoints={gamePoints}
 					setShowResultsPanel={setShowResultsPanel}
 					resetGame={resetGame}
 					showResultsPanel={showResultsPanel}

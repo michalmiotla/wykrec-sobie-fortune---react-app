@@ -5,9 +5,10 @@ import { FinishGameButton } from '../FinishGameButton'
 export function GuessAnswerInput({
 	setShowGuessAnswerInput,
 	chosenAnswer,
-	setRoundPoints,
+	setGamePoints,
+	gamePoints,
 	resetRound,
-	roundTimeMinutes,
+	roundTime,
 	setIsTimeRunning,
 	setIsAnswerCorrect,
 	isAnswerCorrect,
@@ -21,11 +22,11 @@ export function GuessAnswerInput({
 	function checkPlayerGuess() {
 		let pointsFromGoodAnswer
 
-		if (roundTimeMinutes === 2 || roundTimeMinutes === 3) {
+		if (roundTime.minutes === 2 || roundTime.minutes === 3) {
 			pointsFromGoodAnswer = 3000
-		} else if (roundTimeMinutes === 1) {
+		} else if (roundTime.minutes === 1) {
 			pointsFromGoodAnswer = 2000
-		} else if (roundTimeMinutes === 0) {
+		} else if (roundTime.minutes === 0) {
 			pointsFromGoodAnswer = 1000
 		}
 
@@ -34,7 +35,8 @@ export function GuessAnswerInput({
 		if (playerGuess.toUpperCase() === chosenAnswer.answer) {
 			setIsAnswerCorrect(true)
 			setIsTimeRunning(false)
-			setRoundPoints(prevPoints => prevPoints + pointsFromGoodAnswer)
+			setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints + pointsFromGoodAnswer })
+			// setRoundPoints(prevPoints => prevPoints + pointsFromGoodAnswer)
 		} else {
 			setIsAnswerCorrect(false)
 		}
