@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Logo } from './components/Logo'
-import { StartPanel } from './components/Startpanel'
+import { StartPanel } from './components/StartPanel'
 import { MainContainer } from './components/MainContainer'
 import { ResultsPanel } from './components/ResultsPanel'
 
@@ -21,11 +21,7 @@ function App() {
 					<Logo />
 
 					{!isGameStarted && !showResultsPanel && (
-						<StartPanel
-							setIsGameStarted={setIsGameStarted}
-							setShowResultsPanel={setShowResultsPanel}
-							showResultsPanel={showResultsPanel}
-						/>
+						<StartPanel setIsGameStarted={setIsGameStarted} setShowResultsPanel={setShowResultsPanel} />
 					)}
 					{isGameStarted && !showResultsPanel && (
 						<MainContainer

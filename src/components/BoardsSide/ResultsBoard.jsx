@@ -1,4 +1,4 @@
-export function Results({ gamePoints }) {
+export function ResultsBoard({ gamePoints }) {
 	return (
 		<div className='flex w-full justify-around'>
 			<div className='flex flex-col justify-center items-center'>

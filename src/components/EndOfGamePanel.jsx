@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 export function EndOfGamePanel({ gamePoints, setShowResultsPanel, resetGame }) {
 	const newResult = gamePoints.totalPoints
+	console.log(newResult)
 	const results = JSON.parse(localStorage.getItem('results'))
 	const updatedArray = JSON.stringify([...results, newResult])
 

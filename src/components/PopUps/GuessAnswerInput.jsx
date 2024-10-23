@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { NextRound } from '../NextRound'
-import { FinishGameButton } from '../FinishGameButton'
+import { NextRoundButton } from './NextRoundButton'
+import { FinishGameButton } from './FinishGameButton'
 
 export function GuessAnswerInput({
 	setShowGuessAnswerInput,
@@ -36,7 +36,6 @@ export function GuessAnswerInput({
 			setIsAnswerCorrect(true)
 			setIsTimeRunning(false)
 			setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints + pointsFromGoodAnswer })
-			// setRoundPoints(prevPoints => prevPoints + pointsFromGoodAnswer)
 		} else {
 			setIsAnswerCorrect(false)
 		}
@@ -90,7 +89,7 @@ export function GuessAnswerInput({
 								</p>
 							</div>
 
-							<NextRound resetRound={resetRound} setIsAnswerCorrect={setIsAnswerCorrect} />
+							<NextRoundButton resetRound={resetRound} />
 						</>
 					)}
 

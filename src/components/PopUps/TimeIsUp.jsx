@@ -1,4 +1,5 @@
-import { FinishGameButton } from '../FinishGameButton'
+import { FinishGameButton } from './FinishGameButton'
+import { NextRoundButton } from './NextRoundButton'
 
 export function TimeIsUp({ resetRound, round, setShowEndGamePanel, finishGame, chosenAnswer }) {
 	return (
@@ -11,13 +12,7 @@ export function TimeIsUp({ resetRound, round, setShowEndGamePanel, finishGame, c
 				{round === 3 ? (
 					<FinishGameButton setShowEndGamePanel={setShowEndGamePanel} finishGame={finishGame} />
 				) : (
-					<button
-						className='w-1/2 lg:w-1/4 bg-light-beige hover:bg-light-khaki rounded-full border-2 border-black drop-shadow-xl aspect-[100/15] text-base sm:text-xl xl:text-2xl font-bold hover:cursor-pointer transition-colors duration-300 '
-						onClick={() => {
-							resetRound()
-						}}>
-						KOLEJNA RUNDA
-					</button>
+					<NextRoundButton resetRound={resetRound} />
 				)}
 			</div>
 		</div>

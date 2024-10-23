@@ -1,12 +1,10 @@
-import { Results } from './Results'
+import { ResultsBoard } from './ResultsBoard'
 import { AnswerBoard } from './AnswerBoard'
 import { LettersBoard } from './LettersBoard'
 
 export function BoardsSide({
 	chosenAnswer,
-	// roundPoints,
 	round,
-	// totalPoints,
 	gamePoints,
 	disabledButtonsState,
 	chosenLetters,
@@ -16,7 +14,7 @@ export function BoardsSide({
 }) {
 	return (
 		<div className='flex flex-col items-center lg:col-start-2 lg:col-end-3 gap-4 mb-8 lg:mb-0'>
-			<Results gamePoints={gamePoints} />
+			<ResultsBoard gamePoints={gamePoints} />
 			<AnswerBoard round={round} chosenLetters={chosenLetters} chosenAnswer={chosenAnswer} />
 			<LettersBoard
 				chosenLetters={chosenLetters}

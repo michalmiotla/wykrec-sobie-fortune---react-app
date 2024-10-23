@@ -41,8 +41,7 @@ export function Wheel({
 	useEffect(() => {
 		if (valueOfSpinnedWheel === 0) {
 			let timer1 = setTimeout(() => {
-				setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints + valueOfSpinnedWheel })
-				// setRoundPoints(prevPoints => prevPoints * valueOfSpinnedWheel)
+				setGamePoints({ ...gamePoints, roundPoints: gamePoints.roundPoints * valueOfSpinnedWheel })
 			}, 5000)
 			return () => {
 				clearTimeout(timer1)
