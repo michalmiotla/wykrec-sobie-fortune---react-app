@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { easeInOut, motion } from 'framer-motion'
+import { useContext } from 'react'
+import { DisabledButtonsStateContext } from '../../context/DisabledButtonsStateContext'
 
 export function Wheel({
 	setGamePoints,
 	gamePoints,
-	disabledButtonsState,
-	setDisabledButtonsState,
 	setRotateWheel,
 	rotateWheel,
 	valueOfSpinnedWheel,
@@ -15,6 +15,7 @@ export function Wheel({
 	isWheelSpinning,
 }) {
 	const [startSpinDegrees, setStartSpinDegrees] = useState(0)
+	const [disabledButtonsState, setDisabledButtonsState] = useContext(DisabledButtonsStateContext)
 
 	function setDegrees() {
 		const degrees = Math.floor(Math.random() * 2000 + 500)
@@ -51,7 +52,7 @@ export function Wheel({
 
 	return (
 		<div className='w-full relative flex justify-center items-center'>
-			<img className='absolute -top-4 h-8 sm:h-10 md:h-12 lg:h-10 xl:h-12' src='../triangleStop.png' alt='' />
+			<img className='absolute z-10 -top-4 h-8 sm:h-10 md:h-12 lg:h-10 xl:h-12' src='../triangleStop.png' alt='' />
 			<motion.img
 				className='w-[350px]  sm:w-[475px]  md:w-[600px]  lg:w-[475px]  xl:w-[600px]'
 				src='../wheel.png'

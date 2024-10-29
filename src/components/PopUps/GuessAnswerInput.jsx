@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { NextRoundButton } from './NextRoundButton'
 import { FinishGameButton } from './FinishGameButton'
+import { RoundStateContext } from '../../context/RoundStateContext'
 
 export function GuessAnswerInput({
 	setShowGuessAnswerInput,
@@ -12,12 +13,12 @@ export function GuessAnswerInput({
 	setIsTimeRunning,
 	setIsAnswerCorrect,
 	isAnswerCorrect,
-	round,
 	setShowEndGamePanel,
 	finishGame,
 }) {
 	const [playerGuess, setPlayerGuess] = useState('')
 	const [bonusPoints, setBonusPoints] = useState(0)
+	const round = useContext(RoundStateContext)
 
 	function checkPlayerGuess() {
 		let pointsFromGoodAnswer

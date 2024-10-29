@@ -1,6 +1,12 @@
 import { Letter } from './Letter'
+import { useContext } from 'react'
+import { RoundStateContext } from '../../context/RoundStateContext'
+import { ChosenLettersStateContext } from '../../context/ChosenLettersStateContext'
 
-export function AnswerBoard({ chosenLetters, chosenAnswer, round }) {
+export function AnswerBoard({ chosenAnswer }) {
+	const round = useContext(RoundStateContext)
+	const chosenLetters = useContext(ChosenLettersStateContext)
+
 	const showedAnswer = chosenAnswer.splittedAnswer.map((word, index) => (
 		<div className='flex justify-center items-center flex-wrap w-full' key={index}>
 			{word.map((letter, index) => (

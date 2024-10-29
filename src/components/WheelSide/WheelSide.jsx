@@ -8,8 +8,6 @@ export function WheelSide({
 	rotateWheel,
 	valueOfSpinnedWheel,
 	initialDeg,
-	setDisabledButtonsState,
-	disabledButtonsState,
 	setIsRoundRestarted,
 	setShowGuessAnswerInput,
 	setIsWheelSpinning,
@@ -24,17 +22,11 @@ export function WheelSide({
 				rotateWheel={rotateWheel}
 				setGamePoints={setGamePoints}
 				gamePoints={gamePoints}
-				setDisabledButtonsState={setDisabledButtonsState}
-				disabledButtonsState={disabledButtonsState}
 				setIsRoundRestarted={setIsRoundRestarted}
 				setIsWheelSpinning={setIsWheelSpinning}
 				isWheelSpinning={isWheelSpinning}
 			/>
-			<ButtonsBoard
-				setDisabledButtonsState={setDisabledButtonsState}
-				disabledButtonsState={disabledButtonsState}
-				setShowGuessAnswerInput={setShowGuessAnswerInput}
-			/>
+			<ButtonsBoard setShowGuessAnswerInput={setShowGuessAnswerInput} />
 		</div>
 	)
 }

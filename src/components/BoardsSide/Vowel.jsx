@@ -1,4 +1,8 @@
-export function Vowel({ letter, chosenLetters, handleVowels }) {
+import { useContext } from 'react'
+import { ChosenLettersStateContext } from '../../context/ChosenLettersStateContext'
+
+export function Vowel({ letter, handleVowels }) {
+	const chosenLetters = useContext(ChosenLettersStateContext)
 	return (
 		<button
 			onClick={() => {

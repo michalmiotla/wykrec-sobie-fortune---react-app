@@ -1,4 +1,9 @@
-export function Consonant({ letter, chosenLetters, handleConsonants }) {
+import { useContext } from 'react'
+import { ChosenLettersStateContext } from '../../context/ChosenLettersStateContext'
+
+export function Consonant({ letter, handleConsonants }) {
+	const chosenLetters = useContext(ChosenLettersStateContext)
+
 	return (
 		<button
 			disabled={chosenLetters.includes(letter) ? true : false}

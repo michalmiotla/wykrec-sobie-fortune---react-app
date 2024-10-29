@@ -7,6 +7,9 @@ import { setValueOfSpinnedWheel } from '../utils/setValueOfSpinnedWheel'
 import { QuickInfo } from './PopUps/QuickInfo'
 import { EndOfGamePanel } from './EndOfGamePanel'
 import { GuessAnswerInput } from './PopUps/GuessAnswerInput'
+import { RoundStateContext } from '../context/RoundStateContext'
+import { DisabledButtonsStateContext } from '../context/DisabledButtonsStateContext'
+import { ChosenLettersStateContext } from '../context/ChosenLettersStateContext'
 
 let answerToGuess = findAnswer()
 
@@ -56,7 +59,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 						setIsTimeRunning(false)
 					}
 				}
-			}, 10)
+			}, 100)
 		}
 
 		return () => clearInterval(timeInterval)
@@ -236,33 +239,34 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 	}
 
 	return (
-		<>
+		<RoundStateContext.Provider value={round}>
 			{!showEndGamePanel ? (
 				<div className='grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:gap-8 xl:gap-16 2xl:gap-24 lg:grid-rows-1 my-8 lg:my-20 3xl:my-32'>
-					<BoardsSide
-						chosenAnswer={chosenAnswer}
-						round={round}
-						gamePoints={gamePoints}
-						disabledButtonsState={disabledButtonsState}
-						chosenLetters={chosenLetters}
-						roundTime={roundTime}
-						handleConsonants={handleConsonants}
-						handleVowels={handleVowels}
-					/>
-					<WheelSide
-						initialDeg={initialDeg}
-						valueOfSpinnedWheel={valueOfSpinnedWheel}
-						setRotateWheel={setRotateWheel}
-						rotateWheel={rotateWheel}
-						setGamePoints={setGamePoints}
-						gamePoints={gamePoints}
-						setDisabledButtonsState={setDisabledButtonsState}
-						disabledButtonsState={disabledButtonsState}
-						setIsRoundRestarted={setIsRoundRestarted}
-						setShowGuessAnswerInput={setShowGuessAnswerInput}
-						setIsWheelSpinning={setIsWheelSpinning}
-						isWheelSpinning={isWheelSpinning}
-					/>
+					<ChosenLettersStateContext.Provider value={chosenLetters}>
+						<BoardsSide
+							chosenAnswer={chosenAnswer}
+							gamePoints={gamePoints}
+							disabledButtonsState={disabledButtonsState}
+							roundTime={roundTime}
+							handleConsonants={handleConsonants}
+							handleVowels={handleVowels}
+						/>
+					</ChosenLettersStateContext.Provider>
+					<DisabledButtonsStateContext.Provider value={[disabledButtonsState, setDisabledButtonsState]}>
+						<WheelSide
+							initialDeg={initialDeg}
+							valueOfSpinnedWheel={valueOfSpinnedWheel}
+							setRotateWheel={setRotateWheel}
+							rotateWheel={rotateWheel}
+							setGamePoints={setGamePoints}
+							gamePoints={gamePoints}
+							setIsRoundRestarted={setIsRoundRestarted}
+							setShowGuessAnswerInput={setShowGuessAnswerInput}
+							setIsWheelSpinning={setIsWheelSpinning}
+							isWheelSpinning={isWheelSpinning}
+						/>
+					</DisabledButtonsStateContext.Provider>
+
 					{showInfo && isTimeRunning && <QuickInfo chosenLetters={chosenLetters} setShowInfo={setShowInfo} />}
 					{((showGuessAnswerInput && isTimeRunning) ||
 						(showGuessAnswerInput && !isTimeRunning && isAnswerCorrect === true)) && (
@@ -276,14 +280,12 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 							setIsTimeRunning={setIsTimeRunning}
 							setIsAnswerCorrect={setIsAnswerCorrect}
 							isAnswerCorrect={isAnswerCorrect}
-							round={round}
 							setShowEndGamePanel={setShowEndGamePanel}
 							finishGame={finishGame}
 						/>
 					)}
 					{!isTimeRunning && roundTime.minutes === 0 && roundTime.seconds === 0 && (
 						<TimeIsUp
-							round={round}
 							resetRound={resetRound}
 							setShowEndGamePanel={setShowEndGamePanel}
 							finishGame={finishGame}
@@ -299,6 +301,6 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 					showResultsPanel={showResultsPanel}
 				/>
 			)}
-		</>
+		</RoundStateContext.Provider>
 	)
 }

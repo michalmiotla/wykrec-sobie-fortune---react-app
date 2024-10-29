@@ -1,4 +1,9 @@
-export function SpinButton({ setDisabledButtonsState, disabledButtonsState }) {
+import { useContext } from 'react'
+import { DisabledButtonsStateContext } from '../../context/DisabledButtonsStateContext'
+
+export function SpinButton() {
+	const [disabledButtonsState, setDisabledButtonsState] = useContext(DisabledButtonsStateContext)
+
 	function spinTheWheel() {
 		setDisabledButtonsState({
 			...disabledButtonsState,

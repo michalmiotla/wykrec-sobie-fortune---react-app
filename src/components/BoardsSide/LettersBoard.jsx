@@ -3,17 +3,13 @@ import { vowelsArray } from '../../utils/vowelsArray'
 import { Consonant } from '../BoardsSide/Consonant'
 import { Vowel } from './Vowel'
 
-export function LettersBoard({ disabledButtonsState, chosenLetters, roundTime, handleConsonants, handleVowels }) {
+export function LettersBoard({ disabledButtonsState, roundTime, handleConsonants, handleVowels }) {
 	const mappedConsonants = consonantsArray.map((consonant, index) => (
-		<Consonant
-			letter={consonant}
-			key={index}
-			chosenLetters={chosenLetters}
-			handleConsonants={handleConsonants}></Consonant>
+		<Consonant letter={consonant} key={index} handleConsonants={handleConsonants}></Consonant>
 	))
 
 	const mappedVowels = vowelsArray.map((vowel, index) => (
-		<Vowel letter={vowel} key={index} chosenLetters={chosenLetters} handleVowels={handleVowels}></Vowel>
+		<Vowel letter={vowel} key={index} handleVowels={handleVowels}></Vowel>
 	))
 
 	return (

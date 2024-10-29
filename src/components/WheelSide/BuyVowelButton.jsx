@@ -1,4 +1,9 @@
-export function BuyVowelButton({ setDisabledButtonsState, disabledButtonsState }) {
+import { useContext } from 'react'
+import { DisabledButtonsStateContext } from '../../context/DisabledButtonsStateContext'
+
+export function BuyVowelButton() {
+	const [disabledButtonsState, setDisabledButtonsState] = useContext(DisabledButtonsStateContext)
+
 	function buyVowel() {
 		setDisabledButtonsState({
 			...disabledButtonsState,

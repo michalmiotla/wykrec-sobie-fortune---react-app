@@ -1,4 +1,9 @@
-export function GuessAnswerButton({ setShowGuessAnswerInput, disabledButtonsState }) {
+import { useContext } from 'react'
+import { DisabledButtonsStateContext } from '../../context/DisabledButtonsStateContext'
+
+export function GuessAnswerButton({ setShowGuessAnswerInput }) {
+	const [disabledButtonsState] = useContext(DisabledButtonsStateContext)
+
 	return (
 		<button
 			disabled={disabledButtonsState.guessAnswerButton}

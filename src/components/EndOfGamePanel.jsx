@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 
 export function EndOfGamePanel({ gamePoints, setShowResultsPanel, resetGame }) {
+	console.log('render')
+
 	const newResult = gamePoints.totalPoints
 	console.log(newResult)
 	const results = JSON.parse(localStorage.getItem('results'))
