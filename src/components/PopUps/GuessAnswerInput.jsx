@@ -94,8 +94,16 @@ export function GuessAnswerInput({
 						</>
 					)}
 
-					{isAnswerCorrect === true && round === 3 && (
-						<FinishGameButton setShowEndGamePanel={setShowEndGamePanel} finishGame={finishGame} />
+					{isAnswerCorrect && round === 3 && (
+						<>
+							<div className='py-2 px-4 bg-white rounded-full border-2 border-green-400'>
+								<p className=' text-center text-base sm:text-xl xl:text-2xl text-green-400'>
+									<span className='font-bold'>{bonusPoints} ZŁ</span> BONUSU ZA POPRAWNĄ ODPOWIEDŹ!
+								</p>
+							</div>
+
+							<FinishGameButton setShowEndGamePanel={setShowEndGamePanel} finishGame={finishGame} />
+						</>
 					)}
 				</div>
 			</div>

@@ -7,8 +7,13 @@ export function ResultsPanel({ setShowResultsPanel, setIsGameStarted }) {
 	resultsArray.sort(function (a, b) {
 		return b - a
 	})
+
+	if (resultsArray.length >= 10) {
+		resultsArray.splice(9, resultsArray.length - 10)
+	}
+
 	const mappedResults = resultsArray.map((r, index) => (
-		<li className='flex justify-between p-3 border-b-2 border-black' key={resultsArray[index]}>
+		<li className='flex justify-between p-3 border-b-2 border-black' key={index}>
 			<p>{index + 1}. </p>
 			<p className='font-bold'>{r} ZŁ</p>
 		</li>

@@ -9,5 +9,6 @@ export function findAnswer() {
 	const splittedAnswer = fullAnswer.map(word => word.split(''))
 	answersArray[indexOfCategory].answers.splice(indexOfAnswer, 1)
 	const answerObject = { category, answer, fullAnswer, splittedAnswer }
+	console.log(answerObject.answer)
 	return answerObject
 }

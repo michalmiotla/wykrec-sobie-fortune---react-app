@@ -59,7 +59,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 						setIsTimeRunning(false)
 					}
 				}
-			}, 100)
+			}, 10)
 		}
 
 		return () => clearInterval(timeInterval)
@@ -183,11 +183,8 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 	}
 
 	function finishGame() {
-		if (!(!isTimeRunning && roundTime.minutes === 0 && roundTime.seconds === 0)) {
-			setGamePoints({ roundPoints: 0, totalPoints: gamePoints.totalPoints + gamePoints.roundPoints })
-			setShowGuessAnswerInput(false)
-			setIsTimeRunning(false)
-		}
+		setGamePoints({ ...gamePoints, totalPoints: gamePoints.totalPoints + gamePoints.roundPoints })
+		setShowGuessAnswerInput(false)
 	}
 
 	function handleConsonants(letter) {
@@ -268,6 +265,7 @@ export function MainContainer({ setShowResultsPanel, setIsGameStarted, showResul
 					</DisabledButtonsStateContext.Provider>
 
 					{showInfo && isTimeRunning && <QuickInfo chosenLetters={chosenLetters} setShowInfo={setShowInfo} />}
+
 					{((showGuessAnswerInput && isTimeRunning) ||
 						(showGuessAnswerInput && !isTimeRunning && isAnswerCorrect === true)) && (
 						<GuessAnswerInput
