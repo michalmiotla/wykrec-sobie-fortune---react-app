@@ -2,7 +2,7 @@
 
 ## Demo
 
-(https://wykrecsobiefortune.netlify.app)
+https://wykrecsobiefortune.netlify.app
 
 ## About app
 
