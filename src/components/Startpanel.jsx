@@ -12,21 +12,15 @@ export function StartPanel({ setIsGameStarted, setShowResultsPanel }) {
           <div className="text-[10px] sm:text-sm lg:text-base">
             <ul className="list-disc px-4 py-6">
               <li className="py-1">
-                Gra wzorowana jest na teleturnieju
-                <q>
-                  <b>Koło Fortuny</b>
-                </q>
-                . Celem gry jest zdobycie jak najwyższej wygranej, poprzez
-                odkrywanie ukrytych liter w hasłach i odgadywaniu ich w całości.
+                Gra wzorowana jest na teleturnieju <b>KOŁO FORTUNY</b>. Celem
+                gry jest zdobycie jak najwyższej wygranej, poprzez odkrywanie
+                ukrytych liter w hasłach i odgadywaniu ich w całości.
               </li>
               <li className="py-1">
                 Rozgrywka składa się z <b>trzech rund</b>, każda z nich może
                 trwać <b>maksymalnie trzy minuty</b>. Kolejka rozpoczyna się od
                 zakręcenia kołem, na którym znajdują się pola z wartościami
-                pieniężnymi (od 100 do 1000 złotych) oraz pole
-                <q>
-                  <b>Bankrut</b>
-                </q>
+                pieniężnymi (od 100 do 1000 złotych) oraz pole <b>BANKRUT</b>,
                 które sprawia, że gracz traci wszystkie uzbierane dotychczas w
                 tej rundzie pieniądze.
               </li>
@@ -34,23 +28,22 @@ export function StartPanel({ setIsGameStarted, setShowResultsPanel }) {
                 Po zakręceniu kołem gracz ma za zadanie wytypować{" "}
                 <b>spółgłoskę</b>, która według niego znajduje się w haśle.
                 Jeśli trafi, na jego konto trafia wylosowana kwota. Jeśli
-                spółgłoska pojawia się w haśle wielokrotnie, nagorda zostaje
+                spółgłoska pojawia się w haśle wielokrotnie, nagroda zostaje
                 wielokrotnie pomnożona.
               </li>
               <li className="py-1">
                 Po wytypowaniu spółgłoski gracz ma prawo dalej kręcić kołem i
                 odgadywać kolejne spółgłoski, by ułatwić sobie drogę do
-                odgadnięcia hasła, ryzykując jednak trafieniem na{" "}
-                <q>Bankruta</q>, kupić
-                <b> samogłoskę</b> za <b>400 złotych</b>, co może znacząco
-                ułatwić odgadnięcie hasła, ale wpływa negatywnie na końcowy
-                wynik rundy, lub próbować odgadnąć hasło.
+                odgadnięcia hasła, ryzykując jednak trafieniem na pole BANKRUT,
+                kupić <b>samogłoskę za 400 złotych</b>, co może znacząco ułatwić
+                odgadnięcie hasła, ale wpływa negatywnie na końcowy wynik rundy,
+                lub próbować odgadnąć hasło.
               </li>
               <li className="py-1">
                 Im szybciej gracz wytypuje prawidłową odpowiedź, wpisując ją w
-                całości w dedykowanym oknie, tym wyższy
-                <b> bonus</b> dostanie na koniec rundy (pierwsza minuta rundy to
-                3000 złotych bonusu, druga - 2000 zł, trzecia - 1000 zł) .
+                całości w dedykowanym oknie, tym wyższy <b>BONUS</b> dostanie na
+                koniec rundy (pierwsza minuta rundy to 3000 złotych bonusu,
+                druga - 2000 zł, trzecia - 1000 zł) .
               </li>
               <li className="py-1">
                 By zdobyć jak najwyższą wygraną, gracz musi polegać na wiedzy,
