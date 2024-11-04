@@ -33,10 +33,16 @@ That was my second attempt to reproduce TV show to React app. In first attempt I
 
 ## Screenshots
 
-![Screenshot_1]()
+![Screenshot_1](https://github.com/user-attachments/assets/97e91397-3aa2-483b-a862-16ca2896965b)
 
-![Screenshot_2]()
+![Screenshot_2](https://github.com/user-attachments/assets/da85490b-0d0c-4119-96d0-5999b528d963)
 
-![Screenshot_3]()
+![Screenshot_3](https://github.com/user-attachments/assets/48df2696-7d80-4473-b35f-85f5f8ade3f8)
 
-![Screenshot_4]()
+![Screenshot_4](https://github.com/user-attachments/assets/b6d7b178-e809-4612-911a-188457262354)
+
+![Screenshot_5](https://github.com/user-attachments/assets/2eaba031-bef4-4d57-81e9-a8edfd4737ab)
+
+![Screenshot_6](https://github.com/user-attachments/assets/40ec4ce0-00d3-492b-bd27-646d2158a54c)
+
+
