@@ -1,1 +1,1 @@
-export const vowelsArray = ['A', 'Ą', 'E', 'Ę', 'I', 'O', 'Ó', 'U', 'Y']
+export const vowelsArray = ["A", "Ą", "E", "Ę", "I", "O", "Ó", "U", "Y"];

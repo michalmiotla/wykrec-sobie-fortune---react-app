@@ -1,45 +1,57 @@
-import { consonantsArray } from '../../utils/consonantsArray'
-import { vowelsArray } from '../../utils/vowelsArray'
-import { Consonant } from '../BoardsSide/Consonant'
-import { Vowel } from './Vowel'
+import { consonantsArray } from "../../utils/consonantsArray";
+import { vowelsArray } from "../../utils/vowelsArray";
+import { Consonant } from "../BoardsSide/Consonant";
+import { Vowel } from "./Vowel";
 
-export function LettersBoard({ disabledButtonsState, roundTime, handleConsonants, handleVowels }) {
-	const mappedConsonants = consonantsArray.map((consonant, index) => (
-		<Consonant letter={consonant} key={index} handleConsonants={handleConsonants}></Consonant>
-	))
+export function LettersBoard({
+  disabledButtonsState,
+  roundTime,
+  handleConsonants,
+  handleVowels,
+}) {
+  const mappedConsonants = consonantsArray.map((consonant, index) => (
+    <Consonant
+      letter={consonant}
+      key={index}
+      handleConsonants={handleConsonants}
+    ></Consonant>
+  ));
 
-	const mappedVowels = vowelsArray.map((vowel, index) => (
-		<Vowel letter={vowel} key={index} handleVowels={handleVowels}></Vowel>
-	))
+  const mappedVowels = vowelsArray.map((vowel, index) => (
+    <Vowel letter={vowel} key={index} handleVowels={handleVowels}></Vowel>
+  ));
 
-	return (
-		<>
-			<div className='flex flex-col items-center justify-between w-[350px] h-[200px] sm:w-[475px] sm:h-[275px] md:w-[600px] md:h-[350px] lg:w-[475px] lg:h-[275px] xl:w-[600px] xl:h-[350px] p-2 bg-light-beige rounded-2xl border-2 border-black'>
-				<div className='flex justify-center items-center  bg-white w-[80%] h-[15%] border-2 border-black drop-shadow-lg'>
-					<p className='text-base sm:text-xl xl:text-2xl '>WYBIERZ LITERĘ:</p>
-				</div>
-				<div className='flex flex-col items-center justify-around w-[95%] h-[60%]'>
-					<div className='relative flex justify-center items-center flex-wrap'>
-						{mappedConsonants}
-						{disabledButtonsState.consonantsArea && (
-							<div className='absolute bg-light-beige opacity-40  h-full w-full'></div>
-						)}
-					</div>
+  return (
+    <>
+      <div className="flex h-[200px] w-[350px] flex-col items-center justify-between rounded-2xl border-2 border-black bg-light-beige p-2 sm:h-[275px] sm:w-[475px] md:h-[350px] md:w-[600px] lg:h-[275px] lg:w-[475px] xl:h-[350px] xl:w-[600px]">
+        <div className="flex h-[15%] w-[80%] items-center justify-center border-2 border-black bg-white drop-shadow-lg">
+          <p className="text-base sm:text-xl xl:text-2xl">WYBIERZ LITERĘ:</p>
+        </div>
+        <div className="flex h-[60%] w-[95%] flex-col items-center justify-around">
+          <div className="relative flex flex-wrap items-center justify-center">
+            {mappedConsonants}
+            {disabledButtonsState.consonantsArea && (
+              <div className="absolute h-full w-full bg-light-beige opacity-40"></div>
+            )}
+          </div>
 
-					<div className='relative flex justify-center items-center'>
-						{mappedVowels}
-						{disabledButtonsState.vowelsArea && (
-							<div className='absolute bg-light-beige opacity-40  h-full w-full'></div>
-						)}
-					</div>
-				</div>
-				<div className='flex justify-between w-[80%] h-[15%]'>
-					<p className='text-base sm:text-xl xl:text-2xl '>DO KONCA RUNDY:</p>
-					<p className='font-bold text-base sm:text-xl xl:text-2xl '>
-						0{roundTime.minutes}:{roundTime.seconds > 9 ? roundTime.seconds : `0${roundTime.seconds}`}
-					</p>
-				</div>
-			</div>
-		</>
-	)
+          <div className="relative flex items-center justify-center">
+            {mappedVowels}
+            {disabledButtonsState.vowelsArea && (
+              <div className="absolute h-full w-full bg-light-beige opacity-40"></div>
+            )}
+          </div>
+        </div>
+        <div className="flex h-[15%] w-[80%] justify-between">
+          <p className="text-base sm:text-xl xl:text-2xl">DO KONCA RUNDY:</p>
+          <p className="text-base font-bold sm:text-xl xl:text-2xl">
+            0{roundTime.minutes}:
+            {roundTime.seconds > 9
+              ? roundTime.seconds
+              : `0${roundTime.seconds}`}
+          </p>
+        </div>
+      </div>
+    </>
+  );
 }

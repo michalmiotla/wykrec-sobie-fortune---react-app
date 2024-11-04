@@ -1,17 +1,18 @@
-import { useContext } from 'react'
-import { ChosenLettersStateContext } from '../../context/ChosenLettersStateContext'
+import { useContext } from "react";
+import { ChosenLettersStateContext } from "../../context/ChosenLettersStateContext";
 
 export function Consonant({ letter, handleConsonants }) {
-	const chosenLetters = useContext(ChosenLettersStateContext)
+  const chosenLetters = useContext(ChosenLettersStateContext);
 
-	return (
-		<button
-			disabled={chosenLetters.includes(letter) ? true : false}
-			onClick={() => {
-				handleConsonants(letter)
-			}}
-			className='bg-white border-2 font-bold text-md sm:text-xl md:text-2xl lg:text-xl xl:text-2xl border-black aspect-[5/7] w-5 sm:w-7 md:w-9 lg:w-7 xl:w-9 m-[2px] hover:bg-light-beige transition-colors duration-300 disabled:bg-light-red'>
-			{letter}
-		</button>
-	)
+  return (
+    <button
+      disabled={chosenLetters.includes(letter) ? true : false}
+      onClick={() => {
+        handleConsonants(letter);
+      }}
+      className="text-md m-[2px] aspect-[5/7] w-5 border-2 border-black bg-white font-bold transition-colors duration-300 hover:bg-light-beige disabled:bg-light-red sm:w-7 sm:text-xl md:w-9 md:text-2xl lg:w-7 lg:text-xl xl:w-9 xl:text-2xl"
+    >
+      {letter}
+    </button>
+  );
 }

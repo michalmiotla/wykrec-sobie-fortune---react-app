@@ -1,3 +1,3 @@
-import { createContext } from 'react'
+import { createContext } from "react";
 
-export const ChosenLettersStateContext = createContext(null)
+export const ChosenLettersStateContext = createContext(null);

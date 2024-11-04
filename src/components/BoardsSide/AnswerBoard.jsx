@@ -1,32 +1,41 @@
-import { Letter } from './Letter'
-import { useContext } from 'react'
-import { RoundStateContext } from '../../context/RoundStateContext'
-import { ChosenLettersStateContext } from '../../context/ChosenLettersStateContext'
+import { Letter } from "./Letter";
+import { useContext } from "react";
+import { RoundStateContext } from "../../context/RoundStateContext";
+import { ChosenLettersStateContext } from "../../context/ChosenLettersStateContext";
 
 export function AnswerBoard({ chosenAnswer }) {
-	const round = useContext(RoundStateContext)
-	const chosenLetters = useContext(ChosenLettersStateContext)
+  const round = useContext(RoundStateContext);
+  const chosenLetters = useContext(ChosenLettersStateContext);
 
-	const showedAnswer = chosenAnswer.splittedAnswer.map((word, index) => (
-		<div className='flex justify-center items-center flex-wrap w-full' key={index}>
-			{word.map((letter, index) => (
-				<Letter key={index} letter={letter} chosenLetters={chosenLetters}></Letter>
-			))}
-		</div>
-	))
+  const showedAnswer = chosenAnswer.splittedAnswer.map((word, index) => (
+    <div
+      className="flex w-full flex-wrap items-center justify-center"
+      key={index}
+    >
+      {word.map((letter, index) => (
+        <Letter
+          key={index}
+          letter={letter}
+          chosenLetters={chosenLetters}
+        ></Letter>
+      ))}
+    </div>
+  ));
 
-	return (
-		<div className='flex flex-col items-center justify-between w-[350px] h-[200px] sm:w-[475px] sm:h-[275px] md:w-[600px] md:h-[350px] lg:w-[475px] lg:h-[275px] xl:w-[600px] xl:h-[350px] p-2 bg-light-beige rounded-2xl border-2 border-black'>
-			<div className='flex justify-center items-center bg-white w-[80%] h-[15%] border-2 border-black drop-shadow-lg'>
-				<p className='text-base sm:text-xl xl:text-2xl '>
-					KATEGORIA: <span className='font-bold'>{chosenAnswer.category}</span>
-				</p>
-			</div>
-			<div className='flex justify-center items-center flex-wrap w-[95%] h-[60%]'>{showedAnswer}</div>
-			<div className='flex justify-between w-[80%] h-[15%]'>
-				<p className='text-base sm:text-xl xl:text-2xl '>RUNDA:</p>
-				<p className='font-bold text-base sm:text-xl xl:text-2xl'>{round}/3</p>
-			</div>
-		</div>
-	)
+  return (
+    <div className="flex h-[200px] w-[350px] flex-col items-center justify-between rounded-2xl border-2 border-black bg-light-beige p-2 sm:h-[275px] sm:w-[475px] md:h-[350px] md:w-[600px] lg:h-[275px] lg:w-[475px] xl:h-[350px] xl:w-[600px]">
+      <div className="flex h-[15%] w-[80%] items-center justify-center border-2 border-black bg-white drop-shadow-lg">
+        <p className="text-base sm:text-xl xl:text-2xl">
+          KATEGORIA: <span className="font-bold">{chosenAnswer.category}</span>
+        </p>
+      </div>
+      <div className="flex h-[60%] w-[95%] flex-wrap items-center justify-center">
+        {showedAnswer}
+      </div>
+      <div className="flex h-[15%] w-[80%] justify-between">
+        <p className="text-base sm:text-xl xl:text-2xl">RUNDA:</p>
+        <p className="text-base font-bold sm:text-xl xl:text-2xl">{round}/3</p>
+      </div>
+    </div>
+  );
 }
